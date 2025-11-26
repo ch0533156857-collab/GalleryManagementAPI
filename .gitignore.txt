@@ -1,0 +1,12 @@
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.cache
+*.log
+*.nupkg
+packages/
+Thumbs.db
+.DS_Store
+appsettings.Development.json
