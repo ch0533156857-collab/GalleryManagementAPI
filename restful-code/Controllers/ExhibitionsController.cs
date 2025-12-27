@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using restful_code.Controllers;
+﻿using Microsoft.AspNetCore.Mvc;
+using restful_code.Data;
 using restful_code.Entities;
 
 namespace restful_code.Controllers
@@ -9,30 +8,19 @@ namespace restful_code.Controllers
     [ApiController]
     public class ExhibitionsController : ControllerBase
     {
-        private static List<Exhibition> _exhibitions = new List<Exhibition>
-        {
-            new Exhibition
-            {
-                Id = 1,
-                Name = "תערוכת הרנסנס",
-                Description = "תערוכה של יצירות מתקופת הרנסנס",
-                StartDate = new DateTime(2024, 1, 1),
-                EndDate = new DateTime(2024, 3, 31),
-                Location = "אולם ראשי",
-                CuratorName = "ד\"ר שרה כהן",
-                ArtworkIds = new List<int> { 1 }
-            }
-        };
+        private readonly DataContext _context;
 
-        private static int _nextId = 2;
+        public ExhibitionsController(DataContext context)
+        {
+            _context = context;
+        }
 
         // GET: api/exhibitions
         [HttpGet]
         public ActionResult<IEnumerable<Exhibition>> GetAllExhibitions([FromQuery] bool? active = null)
         {
-            var exhibitions = _exhibitions.AsQueryable();
+            var exhibitions = _context.Exhibitions.AsQueryable();
 
-            // סינון לפי תערוכות פעילות
             if (active.HasValue && active.Value)
             {
                 var today = DateTime.Now;
@@ -46,7 +34,7 @@ namespace restful_code.Controllers
         [HttpGet("{id}")]
         public ActionResult<Exhibition> GetExhibition(int id)
         {
-            var exhibition = _exhibitions.FirstOrDefault(e => e.Id == id);
+            var exhibition = _context.Exhibitions.FirstOrDefault(e => e.Id == id);
 
             if (exhibition == null)
             {
@@ -60,11 +48,11 @@ namespace restful_code.Controllers
         [HttpPost]
         public ActionResult<Exhibition> CreateExhibition([FromBody] Exhibition exhibition)
         {
-            exhibition.Id = _nextId++;
+            exhibition.Id = _context.NextExhibitionId++;
             exhibition.CreatedAt = DateTime.Now;
             exhibition.ArtworkIds = new List<int>();
 
-            _exhibitions.Add(exhibition);
+            _context.Exhibitions.Add(exhibition);
 
             return CreatedAtAction(nameof(GetExhibition), new { id = exhibition.Id }, exhibition);
         }
@@ -73,7 +61,7 @@ namespace restful_code.Controllers
         [HttpPut("{id}")]
         public ActionResult<Exhibition> UpdateExhibition(int id, [FromBody] Exhibition updatedExhibition)
         {
-            var exhibition = _exhibitions.FirstOrDefault(e => e.Id == id);
+            var exhibition = _context.Exhibitions.FirstOrDefault(e => e.Id == id);
 
             if (exhibition == null)
             {
@@ -94,14 +82,14 @@ namespace restful_code.Controllers
         [HttpDelete("{id}")]
         public ActionResult DeleteExhibition(int id)
         {
-            var exhibition = _exhibitions.FirstOrDefault(e => e.Id == id);
+            var exhibition = _context.Exhibitions.FirstOrDefault(e => e.Id == id);
 
             if (exhibition == null)
             {
                 return NotFound(new { message = $"תערוכה עם מזהה {id} לא נמצאה" });
             }
 
-            _exhibitions.Remove(exhibition);
+            _context.Exhibitions.Remove(exhibition);
 
             return Ok(new { message = "התערוכה נמחקה בהצלחה", deletedId = id });
         }
@@ -110,14 +98,14 @@ namespace restful_code.Controllers
         [HttpGet("{id}/artworks")]
         public ActionResult<IEnumerable<Artwork>> GetExhibitionArtworks(int id)
         {
-            var exhibition = _exhibitions.FirstOrDefault(e => e.Id == id);
+            var exhibition = _context.Exhibitions.FirstOrDefault(e => e.Id == id);
 
             if (exhibition == null)
             {
                 return NotFound(new { message = $"תערוכה עם מזהה {id} לא נמצאה" });
             }
 
-            var artworks = ArtworksController.GetArtworksByArtistId(0)
+            var artworks = _context.Artworks
                 .Where(a => exhibition.ArtworkIds.Contains(a.Id))
                 .ToList();
 
@@ -128,7 +116,7 @@ namespace restful_code.Controllers
         [HttpPost("{id}/artworks")]
         public ActionResult AddArtworkToExhibition(int id, [FromBody] ArtworkToExhibition request)
         {
-            var exhibition = _exhibitions.FirstOrDefault(e => e.Id == id);
+            var exhibition = _context.Exhibitions.FirstOrDefault(e => e.Id == id);
 
             if (exhibition == null)
             {
@@ -149,7 +137,7 @@ namespace restful_code.Controllers
         [HttpDelete("{id}/artworks/{artworkId}")]
         public ActionResult RemoveArtworkFromExhibition(int id, int artworkId)
         {
-            var exhibition = _exhibitions.FirstOrDefault(e => e.Id == id);
+            var exhibition = _context.Exhibitions.FirstOrDefault(e => e.Id == id);
 
             if (exhibition == null)
             {

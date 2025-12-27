@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using restful_code.Data;
 using restful_code.Entities;
-
 
 namespace restful_code.Controllers
 {
@@ -9,22 +8,12 @@ namespace restful_code.Controllers
     [ApiController]
     public class SalesController : ControllerBase
     {
-        private static List<Sale> _sales = new List<Sale>
-        {
-            new Sale
-            {
-                Id = 1,
-                ArtworkId = 1,
-                BuyerName = "ג'ון סמית'",
-                BuyerEmail = "john@example.com",
-                SalePrice = 50000,
-                SaleDate = new DateTime(2024, 6, 15),
-                PaymentMethod = "כרטיס אשראי",
-                Status = "completed"
-            }
-        };
+        private readonly DataContext _context;
 
-        private static int _nextId = 2;
+        public SalesController(DataContext context)
+        {
+            _context = context;
+        }
 
         // GET: api/sales
         [HttpGet]
@@ -32,9 +21,8 @@ namespace restful_code.Controllers
             [FromQuery] DateTime? from = null,
             [FromQuery] DateTime? to = null)
         {
-            var sales = _sales.AsQueryable();
+            var sales = _context.Sales.AsQueryable();
 
-            // סינון לפי טווח תאריכים
             if (from.HasValue)
             {
                 sales = sales.Where(s => s.SaleDate >= from.Value);
@@ -52,7 +40,7 @@ namespace restful_code.Controllers
         [HttpGet("{id}")]
         public ActionResult<Sale> GetSale(int id)
         {
-            var sale = _sales.FirstOrDefault(s => s.Id == id);
+            var sale = _context.Sales.FirstOrDefault(s => s.Id == id);
 
             if (sale == null)
             {
@@ -66,11 +54,11 @@ namespace restful_code.Controllers
         [HttpPost]
         public ActionResult<Sale> CreateSale([FromBody] Sale sale)
         {
-            sale.Id = _nextId++;
+            sale.Id = _context.NextSaleId++;
             sale.SaleDate = DateTime.Now;
             sale.Status = "completed";
 
-            _sales.Add(sale);
+            _context.Sales.Add(sale);
 
             return CreatedAtAction(nameof(GetSale), new { id = sale.Id }, sale);
         }
@@ -79,7 +67,7 @@ namespace restful_code.Controllers
         [HttpPut("{id}")]
         public ActionResult<Sale> UpdateSale(int id, [FromBody] Sale updatedSale)
         {
-            var sale = _sales.FirstOrDefault(s => s.Id == id);
+            var sale = _context.Sales.FirstOrDefault(s => s.Id == id);
 
             if (sale == null)
             {
@@ -96,18 +84,18 @@ namespace restful_code.Controllers
             return Ok(sale);
         }
 
-        // DELETE: api/sales/5 (ביטול מכירה)
+        // DELETE: api/sales/5
         [HttpDelete("{id}")]
         public ActionResult DeleteSale(int id)
         {
-            var sale = _sales.FirstOrDefault(s => s.Id == id);
+            var sale = _context.Sales.FirstOrDefault(s => s.Id == id);
 
             if (sale == null)
             {
                 return NotFound(new { message = $"מכירה עם מזהה {id} לא נמצאה" });
             }
 
-            _sales.Remove(sale);
+            _context.Sales.Remove(sale);
 
             return Ok(new { message = "המכירה בוטלה בהצלחה", cancelledId = id });
         }
@@ -116,7 +104,7 @@ namespace restful_code.Controllers
         [HttpGet("stats")]
         public ActionResult GetSalesStatistics()
         {
-            var completedSales = _sales.Where(s => s.Status == "completed").ToList();
+            var completedSales = _context.Sales.Where(s => s.Status == "completed").ToList();
 
             var stats = new
             {

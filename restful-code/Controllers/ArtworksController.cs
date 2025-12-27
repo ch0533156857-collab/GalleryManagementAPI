@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using restful_code.Data;
 using restful_code.Entities;
 
 namespace restful_code.Controllers
@@ -8,40 +8,11 @@ namespace restful_code.Controllers
     [ApiController]
     public class ArtworksController : ControllerBase
     {
-        private static List<Artwork> _artworks = new List<Artwork>
-        {
-            new Artwork
-            {
-                Id = 1,
-                Title = "מונה ליזה",
-                ArtistId = 1,
-                Medium = "שמן על עץ",
-                YearCreated = 1503,
-                Price = 1000000000,
-                Dimensions = "77x53 ס\"מ",
-                Status = "sold",
-                Description = "ציור מפורסם מאת לאונרדו דה וינצ'י"
-            },
-            new Artwork
-            {
-                Id = 2,
-                Title = "גרניקה",
-                ArtistId = 2,
-                Medium = "שמן על קנבס",
-                YearCreated = 1937,
-                Price = 200000000,
-                Dimensions = "349x776 ס\"מ",
-                Status = "available",
-                Description = "יצירת מופת קוביסטית"
-            }
-        };
+        private readonly DataContext _context;
 
-        private static int _nextId = 3;
-
-        // מתודה סטטית לשימוש ב-Controllers אחרים
-        public static List<Artwork> GetArtworksByArtistId(int artistId)
+        public ArtworksController(DataContext context)
         {
-            return _artworks.Where(a => a.ArtistId == artistId).ToList();
+            _context = context;
         }
 
         // GET: api/artworks
@@ -55,21 +26,18 @@ namespace restful_code.Controllers
             [FromQuery] int page = 1,
             [FromQuery] int limit = 10)
         {
-            var artworks = _artworks.AsQueryable();
+            var artworks = _context.Artworks.AsQueryable();
 
-            // סינון לפי סטטוס
             if (!string.IsNullOrEmpty(status))
             {
                 artworks = artworks.Where(a => a.Status.Equals(status, StringComparison.OrdinalIgnoreCase));
             }
 
-            // סינון לפי אמן
             if (artist.HasValue)
             {
                 artworks = artworks.Where(a => a.ArtistId == artist.Value);
             }
 
-            // חיפוש
             if (!string.IsNullOrEmpty(search))
             {
                 artworks = artworks.Where(a =>
@@ -78,7 +46,6 @@ namespace restful_code.Controllers
                     a.Description.Contains(search, StringComparison.OrdinalIgnoreCase));
             }
 
-            // מיון
             if (!string.IsNullOrEmpty(sort))
             {
                 artworks = sort.ToLower() switch
@@ -90,7 +57,6 @@ namespace restful_code.Controllers
                 };
             }
 
-            // Pagination
             var totalItems = artworks.Count();
             var items = artworks.Skip((page - 1) * limit).Take(limit).ToList();
 
@@ -110,7 +76,7 @@ namespace restful_code.Controllers
         [HttpGet("{id}")]
         public ActionResult<Artwork> GetArtwork(int id)
         {
-            var artwork = _artworks.FirstOrDefault(a => a.Id == id);
+            var artwork = _context.Artworks.FirstOrDefault(a => a.Id == id);
 
             if (artwork == null)
             {
@@ -124,11 +90,11 @@ namespace restful_code.Controllers
         [HttpPost]
         public ActionResult<Artwork> CreateArtwork([FromBody] Artwork artwork)
         {
-            artwork.Id = _nextId++;
+            artwork.Id = _context.NextArtworkId++;
             artwork.CreatedAt = DateTime.Now;
-            artwork.Status = "available"; // ברירת מחדל
+            artwork.Status = "available";
 
-            _artworks.Add(artwork);
+            _context.Artworks.Add(artwork);
 
             return CreatedAtAction(nameof(GetArtwork), new { id = artwork.Id }, artwork);
         }
@@ -137,7 +103,7 @@ namespace restful_code.Controllers
         [HttpPut("{id}")]
         public ActionResult<Artwork> UpdateArtwork(int id, [FromBody] Artwork updatedArtwork)
         {
-            var artwork = _artworks.FirstOrDefault(a => a.Id == id);
+            var artwork = _context.Artworks.FirstOrDefault(a => a.Id == id);
 
             if (artwork == null)
             {
@@ -161,14 +127,14 @@ namespace restful_code.Controllers
         [HttpDelete("{id}")]
         public ActionResult DeleteArtwork(int id)
         {
-            var artwork = _artworks.FirstOrDefault(a => a.Id == id);
+            var artwork = _context.Artworks.FirstOrDefault(a => a.Id == id);
 
             if (artwork == null)
             {
                 return NotFound(new { message = $"יצירה עם מזהה {id} לא נמצאה" });
             }
 
-            _artworks.Remove(artwork);
+            _context.Artworks.Remove(artwork);
 
             return Ok(new { message = "היצירה נמחקה בהצלחה", deletedId = id });
         }
@@ -177,7 +143,7 @@ namespace restful_code.Controllers
         [HttpPatch("{id}/status")]
         public ActionResult<Artwork> UpdateArtworkStatus(int id, [FromBody] ArtworkStatusUpdate statusUpdate)
         {
-            var artwork = _artworks.FirstOrDefault(a => a.Id == id);
+            var artwork = _context.Artworks.FirstOrDefault(a => a.Id == id);
 
             if (artwork == null)
             {

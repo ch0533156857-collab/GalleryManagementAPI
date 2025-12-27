@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using restful_code.Data;
 using restful_code.Entities;
-
+using Microsoft.AspNetCore.Mvc;
 
 namespace restful_code.Controllers
 {
@@ -9,40 +8,20 @@ namespace restful_code.Controllers
     [ApiController]
     public class ArtistsController : ControllerBase
     {
-        // רשימה סטטית שמחליפה את הדאטאבייס בשלב זה
-        private static List<Artist> _artists = new List<Artist>
-        {
-            new Artist
-            {
-                Id = 1,
-                Name = "לאונרדו דה וינצ'י",
-                Biography = "אמן רנסנס איטלקי",
-                Nationality = "איטליה",
-                BirthDate = new DateTime(1452, 4, 15),
-                Style = "רנסנס",
-                Status = "active"
-            },
-            new Artist
-            {
-                Id = 2,
-                Name = "פבלו פיקאסו",
-                Biography = "אמן קוביסטי ספרדי",
-                Nationality = "ספרד",
-                BirthDate = new DateTime(1881, 10, 25),
-                Style = "קוביזם",
-                Status = "active"
-            }
-        };
+        private readonly DataContext _context;
 
-        private static int _nextId = 3;
+        // 🎯 Constructor - מקבל את DataContext בהזרקה
+        public ArtistsController(DataContext context)
+        {
+            _context = context;
+        }
 
         // GET: api/artists
         [HttpGet]
         public ActionResult<IEnumerable<Artist>> GetAllArtists([FromQuery] string? status = null)
         {
-            var artists = _artists.AsQueryable();
+            var artists = _context.Artists.AsQueryable();
 
-            // סינון לפי סטטוס אם הוגדר
             if (!string.IsNullOrEmpty(status))
             {
                 artists = artists.Where(a => a.Status.Equals(status, StringComparison.OrdinalIgnoreCase));
@@ -55,7 +34,7 @@ namespace restful_code.Controllers
         [HttpGet("{id}")]
         public ActionResult<Artist> GetArtist(int id)
         {
-            var artist = _artists.FirstOrDefault(a => a.Id == id);
+            var artist = _context.Artists.FirstOrDefault(a => a.Id == id);
 
             if (artist == null)
             {
@@ -69,11 +48,11 @@ namespace restful_code.Controllers
         [HttpPost]
         public ActionResult<Artist> CreateArtist([FromBody] Artist artist)
         {
-            artist.Id = _nextId++;
+            artist.Id = _context.NextArtistId++;
             artist.CreatedAt = DateTime.Now;
-            artist.Status = "active"; // ברירת מחדל
+            artist.Status = "active";
 
-            _artists.Add(artist);
+            _context.Artists.Add(artist);
 
             return CreatedAtAction(nameof(GetArtist), new { id = artist.Id }, artist);
         }
@@ -82,14 +61,13 @@ namespace restful_code.Controllers
         [HttpPut("{id}")]
         public ActionResult<Artist> UpdateArtist(int id, [FromBody] Artist updatedArtist)
         {
-            var artist = _artists.FirstOrDefault(a => a.Id == id);
+            var artist = _context.Artists.FirstOrDefault(a => a.Id == id);
 
             if (artist == null)
             {
                 return NotFound(new { message = $"אמן עם מזהה {id} לא נמצא" });
             }
 
-            // עדכון כל השדות
             artist.Name = updatedArtist.Name;
             artist.Biography = updatedArtist.Biography;
             artist.Nationality = updatedArtist.Nationality;
@@ -104,14 +82,13 @@ namespace restful_code.Controllers
         [HttpPatch("{id}/status")]
         public ActionResult<Artist> UpdateArtistStatus(int id, [FromBody] StatusUpdate statusUpdate)
         {
-            var artist = _artists.FirstOrDefault(a => a.Id == id);
+            var artist = _context.Artists.FirstOrDefault(a => a.Id == id);
 
             if (artist == null)
             {
                 return NotFound(new { message = $"אמן עם מזהה {id} לא נמצא" });
             }
 
-            // בדיקה שהסטטוס תקין
             if (statusUpdate.Status != "active" && statusUpdate.Status != "inactive")
             {
                 return BadRequest(new { message = "סטטוס חייב להיות active או inactive" });
@@ -126,21 +103,19 @@ namespace restful_code.Controllers
         [HttpGet("{id}/artworks")]
         public ActionResult<IEnumerable<Artwork>> GetArtistArtworks(int id)
         {
-            var artist = _artists.FirstOrDefault(a => a.Id == id);
+            var artist = _context.Artists.FirstOrDefault(a => a.Id == id);
 
             if (artist == null)
             {
                 return NotFound(new { message = $"אמן עם מזהה {id} לא נמצא" });
             }
 
-            // נשלוף יצירות מה-Controller של Artworks (נממש זאת בהמשך)
-            var artworks = ArtworksController.GetArtworksByArtistId(id);
+            var artworks = _context.Artworks.Where(a => a.ArtistId == id).ToList();
 
             return Ok(artworks);
         }
     }
 
-    // מחלקת עזר לעדכון סטטוס
     public class StatusUpdate
     {
         public string Status { get; set; } = string.Empty;
