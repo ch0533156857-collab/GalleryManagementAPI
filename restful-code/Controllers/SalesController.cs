@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using restful_code.Data;
-using restful_code.Entities;
+﻿using GalleryManagement.Core.Entities;
+using GalleryManagement.Core.Interfaces;
+using GalleryManagement.Data.DataContext;
+using GalleryManagement.Data.Repositories;
+using GalleryManagement.Service.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace restful_code.Controllers
 {
@@ -8,126 +11,129 @@ namespace restful_code.Controllers
     [ApiController]
     public class SalesController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly ISaleService _service;
 
-        public SalesController(DataContext context)
+        public SalesController(ISaleService service)
         {
-            _context = context;
+            _service = service;
         }
 
-        // GET: api/sales
         [HttpGet]
-        public ActionResult<IEnumerable<Sale>> GetAllSales(
-            [FromQuery] DateTime? from = null,
-            [FromQuery] DateTime? to = null)
+        public ActionResult<IEnumerable<Sale>> GetAllSales([FromQuery] string? status = null)
         {
-            var sales = _context.Sales.AsQueryable();
-
-            if (from.HasValue)
+            try
             {
-                sales = sales.Where(s => s.SaleDate >= from.Value);
+                var sales = _service.GetAllSales(status);
+                return Ok(sales);
             }
-
-            if (to.HasValue)
+            catch (Exception ex)
             {
-                sales = sales.Where(s => s.SaleDate <= to.Value);
+                return BadRequest(new { message = ex.Message });
             }
-
-            return Ok(sales.ToList());
         }
 
-        // GET: api/sales/5
         [HttpGet("{id}")]
         public ActionResult<Sale> GetSale(int id)
         {
-            var sale = _context.Sales.FirstOrDefault(s => s.Id == id);
-
-            if (sale == null)
+            try
             {
-                return NotFound(new { message = $"מכירה עם מזהה {id} לא נמצאה" });
+                var sale = _service.GetSaleById(id);
+                if (sale == null)
+                {
+                    return NotFound(new { message = $"מכירה עם מזהה {id} לא נמצאה" });
+                }
+                return Ok(sale);
             }
-
-            return Ok(sale);
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
-        // POST: api/sales
+        [HttpGet("artwork/{artworkId}")]
+        public ActionResult<IEnumerable<Sale>> GetSalesByArtwork(int artworkId)
+        {
+            try
+            {
+                var sales = _service.GetSalesByArtwork(artworkId);
+                return Ok(sales);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
+
         [HttpPost]
         public ActionResult<Sale> CreateSale([FromBody] Sale sale)
         {
-            sale.Id = _context.NextSaleId++;
-            sale.SaleDate = DateTime.Now;
-            sale.Status = "completed";
-
-            _context.Sales.Add(sale);
-
-            return CreatedAtAction(nameof(GetSale), new { id = sale.Id }, sale);
+            try
+            {
+                var created = _service.CreateSale(sale);
+                return CreatedAtAction(nameof(GetSale), new { id = created.Id }, created);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
-        // PUT: api/sales/5
         [HttpPut("{id}")]
         public ActionResult<Sale> UpdateSale(int id, [FromBody] Sale updatedSale)
         {
-            var sale = _context.Sales.FirstOrDefault(s => s.Id == id);
-
-            if (sale == null)
+            try
             {
-                return NotFound(new { message = $"מכירה עם מזהה {id} לא נמצאה" });
+                var sale = _service.UpdateSale(id, updatedSale);
+                return Ok(sale);
             }
-
-            sale.BuyerName = updatedSale.BuyerName;
-            sale.BuyerEmail = updatedSale.BuyerEmail;
-            sale.SalePrice = updatedSale.SalePrice;
-            sale.PaymentMethod = updatedSale.PaymentMethod;
-            sale.Status = updatedSale.Status;
-            sale.Notes = updatedSale.Notes;
-
-            return Ok(sale);
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
-        // DELETE: api/sales/5
+        [HttpPatch("{id}/status")]
+        public ActionResult<Sale> UpdateSaleStatus(int id, [FromBody] SaleStatusUpdate statusUpdate)
+        {
+            try
+            {
+                var sale = _service.UpdateSaleStatus(id, statusUpdate.Status);
+                return Ok(sale);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
         [HttpDelete("{id}")]
         public ActionResult DeleteSale(int id)
         {
-            var sale = _context.Sales.FirstOrDefault(s => s.Id == id);
-
-            if (sale == null)
+            try
             {
-                return NotFound(new { message = $"מכירה עם מזהה {id} לא נמצאה" });
+                _service.DeleteSale(id);
+                return NoContent();
             }
-
-            _context.Sales.Remove(sale);
-
-            return Ok(new { message = "המכירה בוטלה בהצלחה", cancelledId = id });
-        }
-
-        // GET: api/sales/stats
-        [HttpGet("stats")]
-        public ActionResult GetSalesStatistics()
-        {
-            var completedSales = _context.Sales.Where(s => s.Status == "completed").ToList();
-
-            var stats = new
+            catch (KeyNotFoundException ex)
             {
-                totalSales = completedSales.Count,
-                totalRevenue = completedSales.Sum(s => s.SalePrice),
-                averageSalePrice = completedSales.Any() ? completedSales.Average(s => s.SalePrice) : 0,
-                highestSale = completedSales.Any() ? completedSales.Max(s => s.SalePrice) : 0,
-                lowestSale = completedSales.Any() ? completedSales.Min(s => s.SalePrice) : 0,
-                salesByMonth = completedSales
-                    .GroupBy(s => new { s.SaleDate.Year, s.SaleDate.Month })
-                    .Select(g => new
-                    {
-                        year = g.Key.Year,
-                        month = g.Key.Month,
-                        count = g.Count(),
-                        revenue = g.Sum(s => s.SalePrice)
-                    })
-                    .OrderBy(x => x.year)
-                    .ThenBy(x => x.month)
-                    .ToList()
-            };
-
-            return Ok(stats);
+                return NotFound(new { message = ex.Message });
+            }
         }
     }
 }

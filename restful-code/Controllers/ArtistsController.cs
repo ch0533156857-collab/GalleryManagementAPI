@@ -1,5 +1,5 @@
-﻿using restful_code.Data;
-using restful_code.Entities;
+﻿using GalleryManagement.Core.Entities;
+using GalleryManagement.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace restful_code.Controllers
@@ -8,116 +8,107 @@ namespace restful_code.Controllers
     [ApiController]
     public class ArtistsController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IArtistService _service;
 
-        // 🎯 Constructor - מקבל את DataContext בהזרקה
-        public ArtistsController(DataContext context)
+        public ArtistsController(IArtistService service)
         {
-            _context = context;
+            _service = service;
         }
 
-        // GET: api/artists
         [HttpGet]
         public ActionResult<IEnumerable<Artist>> GetAllArtists([FromQuery] string? status = null)
         {
-            var artists = _context.Artists.AsQueryable();
-
-            if (!string.IsNullOrEmpty(status))
+            try
             {
-                artists = artists.Where(a => a.Status.Equals(status, StringComparison.OrdinalIgnoreCase));
+                var artists = _service.GetAllArtists(status);
+                return Ok(artists);
             }
-
-            return Ok(artists.ToList());
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
-        // GET: api/artists/5
         [HttpGet("{id}")]
         public ActionResult<Artist> GetArtist(int id)
         {
-            var artist = _context.Artists.FirstOrDefault(a => a.Id == id);
-
-            if (artist == null)
+            try
             {
-                return NotFound(new { message = $"אמן עם מזהה {id} לא נמצא" });
+                var artist = _service.GetArtistById(id);
+                if (artist == null)
+                {
+                    return NotFound(new { message = $"אמן עם מזהה {id} לא נמצא" });
+                }
+                return Ok(artist);
             }
-
-            return Ok(artist);
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
-        // POST: api/artists
         [HttpPost]
         public ActionResult<Artist> CreateArtist([FromBody] Artist artist)
         {
-            artist.Id = _context.NextArtistId++;
-            artist.CreatedAt = DateTime.Now;
-            artist.Status = "active";
-
-            _context.Artists.Add(artist);
-
-            return CreatedAtAction(nameof(GetArtist), new { id = artist.Id }, artist);
+            try
+            {
+                var created = _service.CreateArtist(artist);
+                return CreatedAtAction(nameof(GetArtist), new { id = created.Id }, created);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
-        // PUT: api/artists/5
         [HttpPut("{id}")]
         public ActionResult<Artist> UpdateArtist(int id, [FromBody] Artist updatedArtist)
         {
-            var artist = _context.Artists.FirstOrDefault(a => a.Id == id);
-
-            if (artist == null)
+            try
             {
-                return NotFound(new { message = $"אמן עם מזהה {id} לא נמצא" });
+                var artist = _service.UpdateArtist(id, updatedArtist);
+                return Ok(artist);
             }
-
-            artist.Name = updatedArtist.Name;
-            artist.Biography = updatedArtist.Biography;
-            artist.Nationality = updatedArtist.Nationality;
-            artist.BirthDate = updatedArtist.BirthDate;
-            artist.Style = updatedArtist.Style;
-            artist.Status = updatedArtist.Status;
-
-            return Ok(artist);
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
-        // PATCH: api/artists/5/status
         [HttpPatch("{id}/status")]
         public ActionResult<Artist> UpdateArtistStatus(int id, [FromBody] StatusUpdate statusUpdate)
         {
-            var artist = _context.Artists.FirstOrDefault(a => a.Id == id);
-
-            if (artist == null)
+            try
             {
-                return NotFound(new { message = $"אמן עם מזהה {id} לא נמצא" });
+                var artist = _service.UpdateArtistStatus(id, statusUpdate.Status);
+                return Ok(artist);
             }
-
-            if (statusUpdate.Status != "active" && statusUpdate.Status != "inactive")
+            catch (KeyNotFoundException ex)
             {
-                return BadRequest(new { message = "סטטוס חייב להיות active או inactive" });
+                return NotFound(new { message = ex.Message });
             }
-
-            artist.Status = statusUpdate.Status;
-
-            return Ok(artist);
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
-        // GET: api/artists/5/artworks
         [HttpGet("{id}/artworks")]
         public ActionResult<IEnumerable<Artwork>> GetArtistArtworks(int id)
         {
-            var artist = _context.Artists.FirstOrDefault(a => a.Id == id);
-
-            if (artist == null)
+            try
             {
-                return NotFound(new { message = $"אמן עם מזהה {id} לא נמצא" });
+                var artworks = _service.GetArtistArtworks(id);
+                return Ok(artworks);
             }
-
-            var artworks = _context.Artworks.Where(a => a.ArtistId == id).ToList();
-
-            return Ok(artworks);
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
         }
-    }
-
-    public class StatusUpdate
-    {
-        public string Status { get; set; } = string.Empty;
     }
 }

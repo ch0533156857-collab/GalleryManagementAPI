@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using restful_code.Data;
-using restful_code.Entities;
+﻿using GalleryManagement.Core.Entities;
+using GalleryManagement.Core.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace restful_code.Controllers
 {
@@ -8,162 +8,125 @@ namespace restful_code.Controllers
     [ApiController]
     public class ArtworksController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IArtworkService _service;
 
-        public ArtworksController(DataContext context)
+        public ArtworksController(IArtworkService service)
         {
-            _context = context;
+            _service = service;
         }
 
-        // GET: api/artworks
         [HttpGet]
-        public ActionResult<IEnumerable<Artwork>> GetAllArtworks(
-            [FromQuery] string? status = null,
-            [FromQuery] int? artist = null,
-            [FromQuery] string? search = null,
-            [FromQuery] string? sort = null,
-            [FromQuery] string? order = "asc",
-            [FromQuery] int page = 1,
-            [FromQuery] int limit = 10)
+        public ActionResult<IEnumerable<Artwork>> GetAllArtworks([FromQuery] string? status = null)
         {
-            var artworks = _context.Artworks.AsQueryable();
-
-            if (!string.IsNullOrEmpty(status))
+            try
             {
-                artworks = artworks.Where(a => a.Status.Equals(status, StringComparison.OrdinalIgnoreCase));
+                var artworks = _service.GetAllArtworks(status);
+                return Ok(artworks);
             }
-
-            if (artist.HasValue)
+            catch (Exception ex)
             {
-                artworks = artworks.Where(a => a.ArtistId == artist.Value);
+                return BadRequest(new { message = ex.Message });
             }
-
-            if (!string.IsNullOrEmpty(search))
-            {
-                artworks = artworks.Where(a =>
-                    a.Title.Contains(search, StringComparison.OrdinalIgnoreCase) ||
-                    a.Medium.Contains(search, StringComparison.OrdinalIgnoreCase) ||
-                    a.Description.Contains(search, StringComparison.OrdinalIgnoreCase));
-            }
-
-            if (!string.IsNullOrEmpty(sort))
-            {
-                artworks = sort.ToLower() switch
-                {
-                    "price" => order == "desc" ? artworks.OrderByDescending(a => a.Price) : artworks.OrderBy(a => a.Price),
-                    "year" => order == "desc" ? artworks.OrderByDescending(a => a.YearCreated) : artworks.OrderBy(a => a.YearCreated),
-                    "title" => order == "desc" ? artworks.OrderByDescending(a => a.Title) : artworks.OrderBy(a => a.Title),
-                    _ => artworks.OrderBy(a => a.Id)
-                };
-            }
-
-            var totalItems = artworks.Count();
-            var items = artworks.Skip((page - 1) * limit).Take(limit).ToList();
-
-            var response = new
-            {
-                totalItems,
-                page,
-                limit,
-                totalPages = (int)Math.Ceiling(totalItems / (double)limit),
-                items
-            };
-
-            return Ok(response);
         }
 
-        // GET: api/artworks/5
         [HttpGet("{id}")]
         public ActionResult<Artwork> GetArtwork(int id)
         {
-            var artwork = _context.Artworks.FirstOrDefault(a => a.Id == id);
-
-            if (artwork == null)
+            try
             {
-                return NotFound(new { message = $"יצירה עם מזהה {id} לא נמצאה" });
+                var artwork = _service.GetArtworkById(id);
+                if (artwork == null)
+                {
+                    return NotFound(new { message = $"יצירה עם מזהה {id} לא נמצאה" });
+                }
+                return Ok(artwork);
             }
-
-            return Ok(artwork);
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
-        // POST: api/artworks
+        [HttpGet("artist/{artistId}")]
+        public ActionResult<IEnumerable<Artwork>> GetArtworksByArtist(int artistId)
+        {
+            try
+            {
+                var artworks = _service.GetArtworksByArtist(artistId);
+                return Ok(artworks);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
+
         [HttpPost]
         public ActionResult<Artwork> CreateArtwork([FromBody] Artwork artwork)
         {
-            artwork.Id = _context.NextArtworkId++;
-            artwork.CreatedAt = DateTime.Now;
-            artwork.Status = "available";
-
-            _context.Artworks.Add(artwork);
-
-            return CreatedAtAction(nameof(GetArtwork), new { id = artwork.Id }, artwork);
+            try
+            {
+                var created = _service.CreateArtwork(artwork);
+                return CreatedAtAction(nameof(GetArtwork), new { id = created.Id }, created);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
-        // PUT: api/artworks/5
         [HttpPut("{id}")]
         public ActionResult<Artwork> UpdateArtwork(int id, [FromBody] Artwork updatedArtwork)
         {
-            var artwork = _context.Artworks.FirstOrDefault(a => a.Id == id);
-
-            if (artwork == null)
+            try
             {
-                return NotFound(new { message = $"יצירה עם מזהה {id} לא נמצאה" });
+                var artwork = _service.UpdateArtwork(id, updatedArtwork);
+                return Ok(artwork);
             }
-
-            artwork.Title = updatedArtwork.Title;
-            artwork.ArtistId = updatedArtwork.ArtistId;
-            artwork.Medium = updatedArtwork.Medium;
-            artwork.YearCreated = updatedArtwork.YearCreated;
-            artwork.Price = updatedArtwork.Price;
-            artwork.Dimensions = updatedArtwork.Dimensions;
-            artwork.Status = updatedArtwork.Status;
-            artwork.ImageUrl = updatedArtwork.ImageUrl;
-            artwork.Description = updatedArtwork.Description;
-
-            return Ok(artwork);
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
-        // DELETE: api/artworks/5
+        [HttpPatch("{id}/status")]
+        public ActionResult<Artwork> UpdateArtworkStatus(int id, [FromBody] StatusUpdate statusUpdate)
+        {
+            try
+            {
+                var artwork = _service.UpdateArtworkStatus(id, statusUpdate.Status);
+                return Ok(artwork);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
         [HttpDelete("{id}")]
         public ActionResult DeleteArtwork(int id)
         {
-            var artwork = _context.Artworks.FirstOrDefault(a => a.Id == id);
-
-            if (artwork == null)
+            try
             {
-                return NotFound(new { message = $"יצירה עם מזהה {id} לא נמצאה" });
+                _service.DeleteArtwork(id);
+                return NoContent();
             }
-
-            _context.Artworks.Remove(artwork);
-
-            return Ok(new { message = "היצירה נמחקה בהצלחה", deletedId = id });
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
         }
-
-        // PATCH: api/artworks/5/status
-        [HttpPatch("{id}/status")]
-        public ActionResult<Artwork> UpdateArtworkStatus(int id, [FromBody] ArtworkStatusUpdate statusUpdate)
-        {
-            var artwork = _context.Artworks.FirstOrDefault(a => a.Id == id);
-
-            if (artwork == null)
-            {
-                return NotFound(new { message = $"יצירה עם מזהה {id} לא נמצאה" });
-            }
-
-            var validStatuses = new[] { "available", "sold", "on_loan", "reserved" };
-            if (!validStatuses.Contains(statusUpdate.Status.ToLower()))
-            {
-                return BadRequest(new { message = $"סטטוס לא תקין. ערכים אפשריים: {string.Join(", ", validStatuses)}" });
-            }
-
-            artwork.Status = statusUpdate.Status.ToLower();
-
-            return Ok(artwork);
-        }
-    }
-
-    public class ArtworkStatusUpdate
-    {
-        public string Status { get; set; } = string.Empty;
     }
 }

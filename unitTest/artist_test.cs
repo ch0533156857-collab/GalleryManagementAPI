@@ -1,17 +1,38 @@
+using GalleryManagement.Core.Entities;
+using GalleryManagement.Core.Interfaces;
+using GalleryManagement.Data.DataContext;
+using GalleryManagement.Data.Repositories;
+using GalleryManagement.Service.Services;
 using Microsoft.AspNetCore.Mvc;
 using restful_code.Controllers;
-using restful_code.Entities;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace unitTest
 {
     public class artist_test
     {
         private readonly ArtistsController _artistsController;
+        private readonly IArtistService _artistService;
+        private readonly IArtistRepository _artistRepository;
+        private readonly GalleryDataContext _context;
 
-        // Constructor - מאתחל את ה-Controller לפני כל טסט
+        // Constructor - מאתחל את כל השכבות לפני כל טסט
         public artist_test()
         {
-            _artistsController = new ArtistsController();
+            // 1. יצירת DataContext (המחסן)
+            _context = new GalleryDataContext(new Microsoft.EntityFrameworkCore.DbContextOptionsBuilder<GalleryDataContext>()
+                .UseInMemoryDatabase(databaseName: "GalleryTestDB")
+                .Options);
+
+            // 2. יצירת Repository (גישה לנתונים)
+            _artistRepository = new ArtistRepository(_context);
+
+            // 3. יצירת Service (הלוגיקה)
+            _artistService = new ArtistService(_artistRepository, _context);
+
+            // 4. יצירת Controller (הממשק)
+            _artistsController = new ArtistsController(_artistService);
         }
 
         // טסט 1: בדיקת GetAllArtists - צריך להחזיר OkObjectResult
@@ -19,7 +40,7 @@ namespace unitTest
         public void GetAllArtists_ReturnsOk()
         {
             // Act - הרצת הפונקציה
-            var result = _artistsController.GetAllArtists();
+            var result = _artistsController.GetAllArtists(null);
 
             // Assert - בדיקה שהתוצאה היא OkObjectResult
             Assert.IsType<OkObjectResult>(result.Result);
@@ -108,6 +129,64 @@ namespace unitTest
 
             // Act - הרצת הפונקציה
             var result = _artistsController.UpdateArtistStatus(artistId, statusUpdate);
+
+            // Assert - בדיקה שהתוצאה היא BadRequest
+            Assert.IsType<BadRequestObjectResult>(result.Result);
+        }
+
+        // טסט 7: בדיקת GetArtistArtworks - מחזיר את היצירות של האמן
+        [Fact]
+        public void GetArtistArtworks_ReturnsCorrectArtworks()
+        {
+            // Arrange - ID של לאונרדו (יש לו את מונה ליזה)
+            int artistId = 1;
+
+            // Act - הרצת הפונקציה
+            var result = _artistsController.GetArtistArtworks(artistId);
+
+            // Assert - בדיקות
+            var okResult = Assert.IsType<OkObjectResult>(result.Result);
+            var artworks = Assert.IsAssignableFrom<IEnumerable<Artwork>>(okResult.Value);
+            Assert.NotEmpty(artworks); // יש לפחות יצירה אחת
+        }
+
+        // טסט 8: בדיקת CreateArtist עם שם ריק - צריך להחזיר BadRequest
+        [Fact]
+        public void CreateArtist_WithEmptyName_ReturnsBadRequest()
+        {
+            // Arrange - אמן עם שם ריק
+            var newArtist = new Artist
+            {
+                Name = "", // שם ריק!
+                Biography = "ביוגרפיה",
+                Nationality = "ישראל",
+                BirthDate = new DateTime(1990, 1, 1),
+                Style = "מודרני"
+            };
+
+            // Act - הרצת הפונקציה
+            var result = _artistsController.CreateArtist(newArtist);
+
+            // Assert - בדיקה שהתוצאה היא BadRequest
+            Assert.IsType<BadRequestObjectResult>(result.Result);
+        }
+
+        // טסט 9: בדיקת CreateArtist עם תאריך לידה בעתיד - צריך להחזיר BadRequest
+        [Fact]
+        public void CreateArtist_WithFutureBirthDate_ReturnsBadRequest()
+        {
+            // Arrange - אמן עם תאריך לידה בעתיד
+            var newArtist = new Artist
+            {
+                Name = "אמן עתידי",
+                Biography = "עוד לא נולד",
+                Nationality = "מאדים",
+                BirthDate = DateTime.Now.AddYears(10), // בעתיד!
+                Style = "מודרני"
+            };
+
+            // Act - הרצת הפונקציה
+            var result = _artistsController.CreateArtist(newArtist);
 
             // Assert - בדיקה שהתוצאה היא BadRequest
             Assert.IsType<BadRequestObjectResult>(result.Result);

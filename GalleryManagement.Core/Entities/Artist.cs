@@ -1,4 +1,10 @@
-﻿namespace restful_code.Entities
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace GalleryManagement.Core.Entities
 {
     public class Artist
     {
@@ -8,8 +14,7 @@
         public string Nationality { get; set; } = string.Empty;
         public DateTime BirthDate { get; set; }
         public string Style { get; set; } = string.Empty;
-        public string Status { get; set; } = "active"; // active, inactive
+        public string Status { get; set; } = "active";
         public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }
-

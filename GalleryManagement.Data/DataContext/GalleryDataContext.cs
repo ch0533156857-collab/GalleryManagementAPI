@@ -1,56 +1,37 @@
-﻿using restful_code.Entities;
+﻿using GalleryManagement.Core.Entities;
+using Microsoft.EntityFrameworkCore;
 
-namespace restful_code.Data
+namespace GalleryManagement.Data.DataContext
 {
-    public class DataContext
+    public class GalleryDataContext : DbContext
     {
-        // 🌟 static = משותף לכל האובייקטים!
-        private static List<Artist>? _artists;
-        private static List<Artwork>? _artworks;
-        private static List<Exhibition>? _exhibitions;
-        private static List<Sale>? _sales;
+        // Constructor - חובה עבור EF!
+        public GalleryDataContext(DbContextOptions<GalleryDataContext> options)
+            : base(options)
+        { }
 
-        private static int _nextArtistId;
-        private static int _nextArtworkId;
-        private static int _nextExhibitionId;
-        private static int _nextSaleId;
+        // DbSet = טבלה ב-DB
+        public DbSet<Artist> Artists { get; set; }
+        public DbSet<Artwork> Artworks { get; set; }
+        public DbSet<Exhibition> Exhibitions { get; set; }
+        public DbSet<Sale> Sales { get; set; }
 
-        // Properties לגישה לנתונים
-        public List<Artist> Artists => _artists ??= InitializeArtists();
-        public List<Artwork> Artworks => _artworks ??= InitializeArtworks();
-        public List<Exhibition> Exhibitions => _exhibitions ??= InitializeExhibitions();
-        public List<Sale> Sales => _sales ??= InitializeSales();
-
-        public int NextArtistId
+        // הגדרת Connection String (אופציה אם לא עושים ב-Program.cs)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            get => _nextArtistId;
-            set => _nextArtistId = value;
-        }
-
-        public int NextArtworkId
-        {
-            get => _nextArtworkId;
-            set => _nextArtworkId = value;
-        }
-
-        public int NextExhibitionId
-        {
-            get => _nextExhibitionId;
-            set => _nextExhibitionId = value;
-        }
-
-        public int NextSaleId
-        {
-            get => _nextSaleId;
-            set => _nextSaleId = value;
-        }
-
-        // מתודות אתחול פרטיות
-        private static List<Artist> InitializeArtists()
-        {
-            _nextArtistId = 3;
-            return new List<Artist>
+            if (!optionsBuilder.IsConfigured)
             {
+                optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=GalleryManagementDB");
+            }
+        }
+
+        // Seed Data - נתונים התחלתיים
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // הוספת נתונים התחלתיים
+            modelBuilder.Entity<Artist>().HasData(
                 new Artist
                 {
                     Id = 1,
@@ -59,7 +40,8 @@ namespace restful_code.Data
                     Nationality = "איטליה",
                     BirthDate = new DateTime(1452, 4, 15),
                     Style = "רנסנס",
-                    Status = "active"
+                    Status = "active",
+                    CreatedAt = new DateTime(2024, 1, 1)
                 },
                 new Artist
                 {
@@ -69,16 +51,12 @@ namespace restful_code.Data
                     Nationality = "ספרד",
                     BirthDate = new DateTime(1881, 10, 25),
                     Style = "קוביזם",
-                    Status = "active"
+                    Status = "active",
+                    CreatedAt = new DateTime(2024, 1, 1)
                 }
-            };
-        }
+            );
 
-        private static List<Artwork> InitializeArtworks()
-        {
-            _nextArtworkId = 3;
-            return new List<Artwork>
-            {
+            modelBuilder.Entity<Artwork>().HasData(
                 new Artwork
                 {
                     Id = 1,
@@ -103,14 +81,9 @@ namespace restful_code.Data
                     Status = "available",
                     Description = "יצירת מופת קוביסטית"
                 }
-            };
-        }
+            );
 
-        private static List<Exhibition> InitializeExhibitions()
-        {
-            _nextExhibitionId = 2;
-            return new List<Exhibition>
-            {
+            modelBuilder.Entity<Exhibition>().HasData(
                 new Exhibition
                 {
                     Id = 1,
@@ -119,17 +92,11 @@ namespace restful_code.Data
                     StartDate = new DateTime(2024, 1, 1),
                     EndDate = new DateTime(2024, 3, 31),
                     Location = "אולם ראשי",
-                    CuratorName = "ד\"ר שרה כהן",
-                    ArtworkIds = new List<int> { 1 }
+                    CuratorName = "ד\"ר שרה כהן"
                 }
-            };
-        }
+            );
 
-        private static List<Sale> InitializeSales()
-        {
-            _nextSaleId = 2;
-            return new List<Sale>
-            {
+            modelBuilder.Entity<Sale>().HasData(
                 new Sale
                 {
                     Id = 1,
@@ -141,7 +108,9 @@ namespace restful_code.Data
                     PaymentMethod = "כרטיס אשראי",
                     Status = "completed"
                 }
-            };
+            );
+            modelBuilder.Entity<Sale>()
+                .Property(s => s.SalePrice).HasPrecision(18, 2);
         }
     }
 }

@@ -8,7 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GalleryManagement.Core\GalleryManagement.Core.csproj" />
+    <ProjectReference Include="..\GalleryManagement.Data\GalleryManagement.Data.csproj" />
+    <ProjectReference Include="..\GalleryManagement.Service\GalleryManagement.Service.csproj" />
   </ItemGroup>
 
 </Project>
