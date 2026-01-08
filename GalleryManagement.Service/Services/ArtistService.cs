@@ -11,22 +11,19 @@ namespace GalleryManagement.Service.Services
 {
     public class ArtistService : IArtistService
     {
-        private readonly IArtistRepository _repository;
-        private readonly GalleryDataContext _context;
-
-        public ArtistService(IArtistRepository repository, GalleryDataContext context)
+        private readonly IRepositoryManager _repositoryManager;
+        public ArtistService(IRepositoryManager repositoryManager)
         {
-            _repository = repository;
-            _context = context;
+            _repositoryManager = repositoryManager;
         }
 
         public List<Artist> GetAllArtists(string? status = null)
         {
             if (string.IsNullOrEmpty(status))
             {
-                return _repository.GetAll();
+                return _repositoryManager.Artists.GetAll().ToList();
             }
-            return _repository.GetByStatus(status);
+            return _repositoryManager.Artists.GetByStatus(status);
         }
 
         public Artist? GetArtistById(int id)
@@ -35,28 +32,32 @@ namespace GalleryManagement.Service.Services
             {
                 throw new ArgumentException("ID חייב להיות חיובי");
             }
-            return _repository.GetById(id);
+            return _repositoryManager.Artists.GetById(id);
         }
 
         public Artist CreateArtist(Artist artist)
         {
-            // Validations - בדיקות תקינות
             if (string.IsNullOrWhiteSpace(artist.Name))
             {
                 throw new ArgumentException("שם האמן הוא שדה חובה");
             }
-
             if (artist.BirthDate > DateTime.Now)
             {
                 throw new ArgumentException("תאריך לידה לא יכול להיות בעתיד");
             }
 
-            return _repository.Add(artist);
+            artist.CreatedAt = DateTime.Now;
+            artist.Status = "active";
+
+            var result = _repositoryManager.Artists.Add(artist);
+            _repositoryManager.Save();
+
+            return result;
         }
 
         public Artist UpdateArtist(int id, Artist updatedArtist)
         {
-            var existingArtist = _repository.GetById(id);
+            var existingArtist = _repositoryManager.Artists.GetById(id);
             if (existingArtist == null)
             {
                 throw new KeyNotFoundException($"אמן עם מזהה {id} לא נמצא");
@@ -67,13 +68,22 @@ namespace GalleryManagement.Service.Services
                 throw new ArgumentException("שם האמן הוא שדה חובה");
             }
 
-            updatedArtist.Id = id;
-            return _repository.Update(updatedArtist);
+            existingArtist.Name = updatedArtist.Name;
+            existingArtist.Biography = updatedArtist.Biography;
+            existingArtist.Nationality = updatedArtist.Nationality;
+            existingArtist.BirthDate = updatedArtist.BirthDate;
+            existingArtist.Style = updatedArtist.Style;
+            existingArtist.Status = updatedArtist.Status;
+
+            _repositoryManager.Artists.Update(existingArtist);
+            _repositoryManager.Save();
+
+            return existingArtist;
         }
 
         public Artist UpdateArtistStatus(int id, string status)
         {
-            var artist = _repository.GetById(id);
+            var artist = _repositoryManager.Artists.GetById(id);
             if (artist == null)
             {
                 throw new KeyNotFoundException($"אמן עם מזהה {id} לא נמצא");
@@ -85,18 +95,23 @@ namespace GalleryManagement.Service.Services
             }
 
             artist.Status = status;
-            return _repository.Update(artist);
+            _repositoryManager.Artists.Update(artist);
+            _repositoryManager.Save();
+
+            return artist;
         }
 
         public List<Artwork> GetArtistArtworks(int id)
         {
-            var artist = _repository.GetById(id);
+            var artist = _repositoryManager.Artists.GetById(id);
             if (artist == null)
             {
                 throw new KeyNotFoundException($"אמן עם מזהה {id} לא נמצא");
             }
 
-            return _context.Artworks.Where(a => a.ArtistId == id).ToList();
+            return _repositoryManager.Artworks.GetAll()
+                .Where(a => a.ArtistId == id)
+                .ToList();
         }
     }
 }

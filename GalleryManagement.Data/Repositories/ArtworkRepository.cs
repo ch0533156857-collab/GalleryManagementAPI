@@ -9,79 +9,24 @@ using System.Threading.Tasks;
 
 namespace GalleryManagement.Data.Repositories
 {
-    public class ArtworkRepository : IArtworkRepository
+    public class ArtworkRepository : Repository<Artwork>, IArtworkRepository
     {
-        private readonly GalleryDataContext _context;
-
-        public ArtworkRepository(GalleryDataContext context)
+        public ArtworkRepository(GalleryDataContext context) : base(context)
         {
-            _context = context;
-        }
-
-        public List<Artwork> GetAll()
-        {
-            return _context.Artworks.ToList();
         }
 
         public List<Artwork> GetByStatus(string status)
         {
-            return _context.Artworks
+            return _dbSet
                 .Where(a => a.Status.Equals(status, StringComparison.OrdinalIgnoreCase))
                 .ToList();
         }
 
         public List<Artwork> GetByArtistId(int artistId)
         {
-            return _context.Artworks
+            return _dbSet
                 .Where(a => a.ArtistId == artistId)
                 .ToList();
-        }
-
-        public Artwork? GetById(int id)
-        {
-            return _context.Artworks.FirstOrDefault(a => a.Id == id);
-        }
-
-        public Artwork Add(Artwork artwork)
-        {
-            _context.Artworks.Add(artwork);
-            _context.SaveChanges();
-            return artwork;
-        }
-
-        public Artwork Update(Artwork artwork)
-        {
-            var existingArtwork = GetById(artwork.Id);
-            if (existingArtwork != null)
-            {
-                existingArtwork.Title = artwork.Title;
-                existingArtwork.ArtistId = artwork.ArtistId;
-                existingArtwork.Medium = artwork.Medium;
-                existingArtwork.YearCreated = artwork.YearCreated;
-                existingArtwork.Price = artwork.Price;
-                existingArtwork.Dimensions = artwork.Dimensions;
-                existingArtwork.Status = artwork.Status;
-                existingArtwork.Description = artwork.Description;
-                _context.SaveChanges();
-            }
-
-            return existingArtwork!;
-        }
-
-        public void Delete(int id)
-        {
-            var artwork = GetById(id);
-            if (artwork != null)
-            {
-                _context.Artworks.Remove(artwork);
-                _context.SaveChanges();
-            }
-        }
-
-        public int GetNextId()
-        {
-            // EF manages the ID automatically
-            return _context.Artworks.Any() ? _context.Artworks.Max(a => a.Id) + 1 : 1;
         }
     }
 }

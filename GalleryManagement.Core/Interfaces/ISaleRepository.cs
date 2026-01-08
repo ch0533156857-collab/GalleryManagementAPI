@@ -7,15 +7,9 @@ using System.Threading.Tasks;
 
 namespace GalleryManagement.Core.Interfaces
 {
-    public interface ISaleRepository
+    public interface ISaleRepository : IRepository<Sale>
     {
-        List<Sale> GetAll();
         List<Sale> GetByStatus(String status);
         List<Sale> GetByArtworkId(int ArtworkId);
-        Sale? GetById(int id);
-        Sale Add(Sale sale);
-        Sale Update(Sale sale);
-        void Delete(int id);
-        int GetNextId();
     }
 }

@@ -5,32 +5,29 @@ namespace GalleryManagement.Service.Services
 {
     public class SaleService : ISaleService
     {
-        private readonly ISaleRepository _repository;
-        private readonly IArtworkRepository _artworkRepository;
-
-        public SaleService(ISaleRepository repository, IArtworkRepository artworkRepository)
+        private readonly IRepositoryManager _repositoryManager;
+        public SaleService(IRepositoryManager repositoryManager)
         {
-            _repository = repository;
-            _artworkRepository = artworkRepository;
+            _repositoryManager = repositoryManager;
         }
 
         public List<Sale> GetAllSales(string? status = null)
         {
             if (string.IsNullOrEmpty(status))
             {
-                return _repository.GetAll();
+                return _repositoryManager.Sales.GetAll().ToList();
             }
-            return _repository.GetByStatus(status);
+            return _repositoryManager.Sales.GetByStatus(status);
         }
 
         public List<Sale> GetSalesByArtwork(int artworkId)
         {
-            var artwork = _artworkRepository.GetById(artworkId);
+            var artwork = _repositoryManager.Artworks.GetById(artworkId);
             if (artwork == null)
             {
                 throw new KeyNotFoundException($"יצירה עם מזהה {artworkId} לא נמצאה");
             }
-            return _repository.GetByArtworkId(artworkId);
+            return _repositoryManager.Sales.GetByArtworkId(artworkId);
         }
 
         public Sale? GetSaleById(int id)
@@ -39,7 +36,7 @@ namespace GalleryManagement.Service.Services
             {
                 throw new ArgumentException("ID חייב להיות חיובי");
             }
-            return _repository.GetById(id);
+            return _repositoryManager.Sales.GetById(id);
         }
 
         public Sale CreateSale(Sale sale)
@@ -54,7 +51,7 @@ namespace GalleryManagement.Service.Services
                 throw new ArgumentException("אימייל הקונה הוא שדה חובה");
             }
 
-            var artwork = _artworkRepository.GetById(sale.ArtworkId);
+            var artwork = _repositoryManager.Artworks.GetById(sale.ArtworkId);
             if (artwork == null)
             {
                 throw new KeyNotFoundException($"יצירה עם מזהה {sale.ArtworkId} לא נמצאה");
@@ -71,18 +68,24 @@ namespace GalleryManagement.Service.Services
             }
 
             sale.Status = "pending";
-            var createdSale = _repository.Add(sale);
+            sale.SaleDate = DateTime.Now;
 
-            // עדכן את סטטוס היצירה
+            // הוספת המכירה
+            var createdSale = _repositoryManager.Sales.Add(sale);
+
+            // עדכון סטטוס היצירה
             artwork.Status = "sold";
-            _artworkRepository.Update(artwork);
+            _repositoryManager.Artworks.Update(artwork);
+
+            // שמירה של שתי הפעולות ביחד - טרנזקציה!
+            _repositoryManager.Save();
 
             return createdSale;
         }
 
         public Sale UpdateSale(int id, Sale updatedSale)
         {
-            var existingSale = _repository.GetById(id);
+            var existingSale = _repositoryManager.Sales.GetById(id);
             if (existingSale == null)
             {
                 throw new KeyNotFoundException($"מכירה עם מזהה {id} לא נמצאה");
@@ -98,13 +101,22 @@ namespace GalleryManagement.Service.Services
                 throw new ArgumentException("מחיר מכירה חייב להיות חיובי");
             }
 
-            updatedSale.Id = id;
-            return _repository.Update(updatedSale);
+            existingSale.ArtworkId = updatedSale.ArtworkId;
+            existingSale.BuyerName = updatedSale.BuyerName;
+            existingSale.BuyerEmail = updatedSale.BuyerEmail;
+            existingSale.SalePrice = updatedSale.SalePrice;
+            existingSale.PaymentMethod = updatedSale.PaymentMethod;
+            existingSale.Status = updatedSale.Status;
+
+            _repositoryManager.Sales.Update(existingSale);
+            _repositoryManager.Save();
+
+            return existingSale;
         }
 
         public Sale UpdateSaleStatus(int id, string status)
         {
-            var sale = _repository.GetById(id);
+            var sale = _repositoryManager.Sales.GetById(id);
             if (sale == null)
             {
                 throw new KeyNotFoundException($"מכירה עם מזהה {id} לא נמצאה");
@@ -117,18 +129,22 @@ namespace GalleryManagement.Service.Services
             }
 
             sale.Status = status;
-            return _repository.Update(sale);
+            _repositoryManager.Sales.Update(sale);
+            _repositoryManager.Save();
+
+            return sale;
         }
 
         public void DeleteSale(int id)
         {
-            var sale = _repository.GetById(id);
+            var sale = _repositoryManager.Sales.GetById(id);
             if (sale == null)
             {
                 throw new KeyNotFoundException($"מכירה עם מזהה {id} לא נמצאה");
             }
 
-            _repository.Delete(id);
+            _repositoryManager.Sales.Delete(sale);
+            _repositoryManager.Save();
         }
     }
 }

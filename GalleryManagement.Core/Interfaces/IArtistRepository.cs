@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace GalleryManagement.Core.Interfaces
 {
-    public interface IArtistRepository
+    public interface IArtistRepository : IRepository<Artist>
     {
-        List<Artist> GetAll();
+        //List<Artist> GetAll();
         List<Artist> GetByStatus(string status);
-        Artist? GetById(int id);
-        Artist Add(Artist artist);
-        Artist Update(Artist artist);
-        int GetNextId();
+        //Artist? GetById(int id);
+        //Artist Add(Artist artist);
+        //Artist Update(Artist artist);
+        //int GetNextId();
     }
 }

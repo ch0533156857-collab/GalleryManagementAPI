@@ -3,16 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{AD2F04F1-BBF9-40C3-B459-0460E3F639F2}|GalleryManagement.Data\\GalleryManagement.Data.csproj|c:\\users\\user1\\documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful api\\restful-code\\gallerymanagement.data\\repositories\\exhibitionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AD2F04F1-BBF9-40C3-B459-0460E3F639F2}|GalleryManagement.Data\\GalleryManagement.Data.csproj|solutionrelative:gallerymanagement.data\\repositories\\exhibitionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD2F04F1-BBF9-40C3-B459-0460E3F639F2}|GalleryManagement.Data\\GalleryManagement.Data.csproj|c:\\users\\user1\\documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful api\\restful-code\\gallerymanagement.data\\repositories\\artworkrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AD2F04F1-BBF9-40C3-B459-0460E3F639F2}|GalleryManagement.Data\\GalleryManagement.Data.csproj|solutionrelative:gallerymanagement.data\\repositories\\artworkrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD2F04F1-BBF9-40C3-B459-0460E3F639F2}|GalleryManagement.Data\\GalleryManagement.Data.csproj|c:\\users\\user1\\documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful api\\restful-code\\gallerymanagement.data\\repositories\\artistrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AD2F04F1-BBF9-40C3-B459-0460E3F639F2}|GalleryManagement.Data\\GalleryManagement.Data.csproj|solutionrelative:gallerymanagement.data\\repositories\\artistrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{AD2F04F1-BBF9-40C3-B459-0460E3F639F2}|GalleryManagement.Data\\GalleryManagement.Data.csproj|c:\\users\\user1\\documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful api\\restful-code\\gallerymanagement.data\\datacontext\\gallerydatacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AD2F04F1-BBF9-40C3-B459-0460E3F639F2}|GalleryManagement.Data\\GalleryManagement.Data.csproj|solutionrelative:gallerymanagement.data\\datacontext\\gallerydatacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DDD26282-F49C-4CB6-ADAB-1CEC6F61137F}|GalleryManagement.Core\\GalleryManagement.Core.csproj|c:\\users\\user1\\documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful api\\restful-code\\gallerymanagement.core\\entities\\sale.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DDD26282-F49C-4CB6-ADAB-1CEC6F61137F}|GalleryManagement.Core\\GalleryManagement.Core.csproj|solutionrelative:gallerymanagement.core\\entities\\sale.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DDD26282-F49C-4CB6-ADAB-1CEC6F61137F}|GalleryManagement.Core\\GalleryManagement.Core.csproj|c:\\users\\user1\\documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful api\\restful-code\\gallerymanagement.core\\interfaces\\iartistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DDD26282-F49C-4CB6-ADAB-1CEC6F61137F}|GalleryManagement.Core\\GalleryManagement.Core.csproj|solutionrelative:gallerymanagement.core\\interfaces\\iartistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AD2F04F1-BBF9-40C3-B459-0460E3F639F2}|GalleryManagement.Data\\GalleryManagement.Data.csproj|c:\\users\\user1\\documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful api\\restful-code\\gallerymanagement.data\\repositories\\exhibitionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AD2F04F1-BBF9-40C3-B459-0460E3F639F2}|GalleryManagement.Data\\GalleryManagement.Data.csproj|solutionrelative:gallerymanagement.data\\repositories\\exhibitionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DDD26282-F49C-4CB6-ADAB-1CEC6F61137F}|GalleryManagement.Core\\GalleryManagement.Core.csproj|c:\\users\\user1\\documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful api\\restful-code\\gallerymanagement.core\\interfaces\\iartistrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DDD26282-F49C-4CB6-ADAB-1CEC6F61137F}|GalleryManagement.Core\\GalleryManagement.Core.csproj|solutionrelative:gallerymanagement.core\\interfaces\\iartistrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{637034F4-C38F-49D7-8AE3-CF60C07A651F}|GalleryManagement.Service\\GalleryManagement.Service.csproj|c:\\users\\user1\\documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful api\\restful-code\\gallerymanagement.service\\gallerymanagement.service.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{637034F4-C38F-49D7-8AE3-CF60C07A651F}|GalleryManagement.Service\\GalleryManagement.Service.csproj|solutionrelative:gallerymanagement.service\\gallerymanagement.service.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DDD26282-F49C-4CB6-ADAB-1CEC6F61137F}|GalleryManagement.Core\\GalleryManagement.Core.csproj|c:\\users\\user1\\documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful api\\restful-code\\gallerymanagement.core\\entities\\sale.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DDD26282-F49C-4CB6-ADAB-1CEC6F61137F}|GalleryManagement.Core\\GalleryManagement.Core.csproj|solutionrelative:gallerymanagement.core\\entities\\sale.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DDD26282-F49C-4CB6-ADAB-1CEC6F61137F}|GalleryManagement.Core\\GalleryManagement.Core.csproj|c:\\users\\user1\\documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful api\\restful-code\\gallerymanagement.core\\entities\\exhibition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -21,10 +41,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{AD2F04F1-BBF9-40C3-B459-0460E3F639F2}|GalleryManagement.Data\\GalleryManagement.Data.csproj|c:\\users\\user1\\documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful api\\restful-code\\gallerymanagement.data\\repositories\\salerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AD2F04F1-BBF9-40C3-B459-0460E3F639F2}|GalleryManagement.Data\\GalleryManagement.Data.csproj|solutionrelative:gallerymanagement.data\\repositories\\salerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Data\\Migrations\\20251228225224_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:GalleryManagement.Data\\Migrations\\20251228225224_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{13148488-ED25-4CB3-A441-E8B0A18F1A38}|unitTest\\unitTest.csproj|c:\\users\\user1\\documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful api\\restful-code\\unittest\\artist_test.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -43,14 +59,6 @@
       "RelativeMoniker": "D:0:0:{DDD26282-F49C-4CB6-ADAB-1CEC6F61137F}|GalleryManagement.Core\\GalleryManagement.Core.csproj|solutionrelative:gallerymanagement.core\\entities\\artist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AD2F04F1-BBF9-40C3-B459-0460E3F639F2}|GalleryManagement.Data\\GalleryManagement.Data.csproj|c:\\users\\user1\\documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful api\\restful-code\\gallerymanagement.data\\repositories\\artworkrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AD2F04F1-BBF9-40C3-B459-0460E3F639F2}|GalleryManagement.Data\\GalleryManagement.Data.csproj|solutionrelative:gallerymanagement.data\\repositories\\artworkrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AD2F04F1-BBF9-40C3-B459-0460E3F639F2}|GalleryManagement.Data\\GalleryManagement.Data.csproj|c:\\users\\user1\\documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful api\\restful-code\\gallerymanagement.data\\repositories\\artistrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AD2F04F1-BBF9-40C3-B459-0460E3F639F2}|GalleryManagement.Data\\GalleryManagement.Data.csproj|solutionrelative:gallerymanagement.data\\repositories\\artistrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{DDD26282-F49C-4CB6-ADAB-1CEC6F61137F}|GalleryManagement.Core\\GalleryManagement.Core.csproj|c:\\users\\user1\\documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful api\\restful-code\\gallerymanagement.core\\interfaces\\isalerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DDD26282-F49C-4CB6-ADAB-1CEC6F61137F}|GalleryManagement.Core\\GalleryManagement.Core.csproj|solutionrelative:gallerymanagement.core\\interfaces\\isalerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -63,20 +71,16 @@
       "RelativeMoniker": "D:0:0:{DDD26282-F49C-4CB6-ADAB-1CEC6F61137F}|GalleryManagement.Core\\GalleryManagement.Core.csproj|solutionrelative:gallerymanagement.core\\interfaces\\iartworkrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DDD26282-F49C-4CB6-ADAB-1CEC6F61137F}|GalleryManagement.Core\\GalleryManagement.Core.csproj|c:\\users\\user1\\documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful api\\restful-code\\gallerymanagement.core\\interfaces\\iartistrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DDD26282-F49C-4CB6-ADAB-1CEC6F61137F}|GalleryManagement.Core\\GalleryManagement.Core.csproj|solutionrelative:gallerymanagement.core\\interfaces\\iartistrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{DDD26282-F49C-4CB6-ADAB-1CEC6F61137F}|GalleryManagement.Core\\GalleryManagement.Core.csproj|c:\\users\\user1\\documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful api\\restful-code\\gallerymanagement.core\\interfaces\\iartworkservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DDD26282-F49C-4CB6-ADAB-1CEC6F61137F}|GalleryManagement.Core\\GalleryManagement.Core.csproj|solutionrelative:gallerymanagement.core\\interfaces\\iartworkservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DDD26282-F49C-4CB6-ADAB-1CEC6F61137F}|GalleryManagement.Core\\GalleryManagement.Core.csproj|c:\\users\\user1\\documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful api\\restful-code\\gallerymanagement.core\\interfaces\\iartistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DDD26282-F49C-4CB6-ADAB-1CEC6F61137F}|GalleryManagement.Core\\GalleryManagement.Core.csproj|solutionrelative:gallerymanagement.core\\interfaces\\iartistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{7733B124-AAFC-4AA7-AA7A-7AD3B5B3E29B}|restful-code\\restful-code.csproj|c:\\users\\user1\\documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful api\\restful-code\\restful-code\\controllers\\artistscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7733B124-AAFC-4AA7-AA7A-7AD3B5B3E29B}|restful-code\\restful-code.csproj|solutionrelative:restful-code\\controllers\\artistscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD2F04F1-BBF9-40C3-B459-0460E3F639F2}|GalleryManagement.Data\\GalleryManagement.Data.csproj|c:\\users\\user1\\documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful api\\restful-code\\gallerymanagement.data\\migrations\\20251228225224_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AD2F04F1-BBF9-40C3-B459-0460E3F639F2}|GalleryManagement.Data\\GalleryManagement.Data.csproj|solutionrelative:gallerymanagement.data\\migrations\\20251228225224_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -86,236 +90,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Sale.cs",
-              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Entities\\Sale.cs",
-              "RelativeDocumentMoniker": "GalleryManagement.Core\\Entities\\Sale.cs",
-              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Entities\\Sale.cs",
-              "RelativeToolTip": "GalleryManagement.Core\\Entities\\Sale.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA4AAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-28T22:53:42.054Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "20251228225224_InitialCreate.cs",
-              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Data\\Migrations\\20251228225224_InitialCreate.cs",
-              "RelativeDocumentMoniker": "GalleryManagement.Data\\Migrations\\20251228225224_InitialCreate.cs",
-              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Data\\Migrations\\20251228225224_InitialCreate.cs",
-              "RelativeToolTip": "GalleryManagement.Data\\Migrations\\20251228225224_InitialCreate.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-28T22:52:25.034Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "GalleryDataContext.cs",
               "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Data\\DataContext\\GalleryDataContext.cs",
               "RelativeDocumentMoniker": "GalleryManagement.Data\\DataContext\\GalleryDataContext.cs",
               "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Data\\DataContext\\GalleryDataContext.cs",
               "RelativeToolTip": "GalleryManagement.Data\\DataContext\\GalleryDataContext.cs",
-              "ViewState": "AgIAAGEAAAAAAAAAAAAwwG0AAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-28T21:49:30.913Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\restful-code\\appsettings.json",
-              "RelativeDocumentMoniker": "restful-code\\appsettings.json",
-              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\restful-code\\appsettings.json",
-              "RelativeToolTip": "restful-code\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-12-28T22:34:08.406Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Exhibition.cs",
-              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Entities\\Exhibition.cs",
-              "RelativeDocumentMoniker": "GalleryManagement.Core\\Entities\\Exhibition.cs",
-              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Entities\\Exhibition.cs",
-              "RelativeToolTip": "GalleryManagement.Core\\Entities\\Exhibition.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAA5wBMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-28T22:31:18.967Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "ArtworkRepository.cs",
-              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Data\\Repositories\\ArtworkRepository.cs",
-              "RelativeDocumentMoniker": "GalleryManagement.Data\\Repositories\\ArtworkRepository.cs",
-              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Data\\Repositories\\ArtworkRepository.cs",
-              "RelativeToolTip": "GalleryManagement.Data\\Repositories\\ArtworkRepository.cs",
-              "ViewState": "AgIAADoAAAAAAAAAAAAwwEwAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-28T22:24:22.155Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ExhibitionRepository.cs",
-              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Data\\Repositories\\ExhibitionRepository.cs",
-              "RelativeDocumentMoniker": "GalleryManagement.Data\\Repositories\\ExhibitionRepository.cs",
-              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Data\\Repositories\\ExhibitionRepository.cs",
-              "RelativeToolTip": "GalleryManagement.Data\\Repositories\\ExhibitionRepository.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAA1wDkAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-28T22:25:25.44Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "SaleRepository.cs",
-              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Data\\Repositories\\SaleRepository.cs",
-              "RelativeDocumentMoniker": "GalleryManagement.Data\\Repositories\\SaleRepository.cs",
-              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Data\\Repositories\\SaleRepository.cs",
-              "RelativeToolTip": "GalleryManagement.Data\\Repositories\\SaleRepository.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAkwD4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-28T22:26:00.912Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\restful-code\\Program.cs",
-              "RelativeDocumentMoniker": "restful-code\\Program.cs",
-              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\restful-code\\Program.cs",
-              "RelativeToolTip": "restful-code\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAABXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-28T21:51:06.887Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Artist.cs",
-              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Entities\\Artist.cs",
-              "RelativeDocumentMoniker": "GalleryManagement.Core\\Entities\\Artist.cs",
-              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Entities\\Artist.cs",
-              "RelativeToolTip": "GalleryManagement.Core\\Entities\\Artist.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-28T22:30:46.622Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ArtistRepository.cs",
-              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Data\\Repositories\\ArtistRepository.cs",
-              "RelativeDocumentMoniker": "GalleryManagement.Data\\Repositories\\ArtistRepository.cs",
-              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Data\\Repositories\\ArtistRepository.cs",
-              "RelativeToolTip": "GalleryManagement.Data\\Repositories\\ArtistRepository.cs",
-              "ViewState": "AgIAACcAAAAAAAAAAAAowD8AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-28T22:22:38.765Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "artist_test.cs",
-              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\unitTest\\artist_test.cs",
-              "RelativeDocumentMoniker": "unitTest\\artist_test.cs",
-              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\unitTest\\artist_test.cs",
-              "RelativeToolTip": "unitTest\\artist_test.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAAwAgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-28T19:33:54.632Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "ISaleRepository.cs",
-              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Interfaces\\ISaleRepository.cs",
-              "RelativeDocumentMoniker": "GalleryManagement.Core\\Interfaces\\ISaleRepository.cs",
-              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Interfaces\\ISaleRepository.cs",
-              "RelativeToolTip": "GalleryManagement.Core\\Interfaces\\ISaleRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-28T22:27:44.894Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "IExhibitionRepository.cs",
-              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Interfaces\\IExhibitionRepository.cs",
-              "RelativeDocumentMoniker": "GalleryManagement.Core\\Interfaces\\IExhibitionRepository.cs",
-              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Interfaces\\IExhibitionRepository.cs",
-              "RelativeToolTip": "GalleryManagement.Core\\Interfaces\\IExhibitionRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-28T22:27:40.037Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "IArtworkRepository.cs",
-              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Interfaces\\IArtworkRepository.cs",
-              "RelativeDocumentMoniker": "GalleryManagement.Core\\Interfaces\\IArtworkRepository.cs",
-              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Interfaces\\IArtworkRepository.cs",
-              "RelativeToolTip": "GalleryManagement.Core\\Interfaces\\IArtworkRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-28T22:27:33.281Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 5,
               "Title": "IArtistRepository.cs",
               "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Interfaces\\IArtistRepository.cs",
               "RelativeDocumentMoniker": "GalleryManagement.Core\\Interfaces\\IArtistRepository.cs",
               "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Interfaces\\IArtistRepository.cs",
               "RelativeToolTip": "GalleryManagement.Core\\Interfaces\\IArtistRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-28T22:27:25.242Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "IArtworkService.cs",
-              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Interfaces\\IArtworkService.cs",
-              "RelativeDocumentMoniker": "GalleryManagement.Core\\Interfaces\\IArtworkService.cs",
-              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Interfaces\\IArtworkService.cs",
-              "RelativeToolTip": "GalleryManagement.Core\\Interfaces\\IArtworkService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-28T22:27:37.641Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 4,
               "Title": "IArtistService.cs",
               "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Interfaces\\IArtistService.cs",
               "RelativeDocumentMoniker": "GalleryManagement.Core\\Interfaces\\IArtistService.cs",
@@ -328,6 +133,207 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ArtistRepository.cs",
+              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Data\\Repositories\\ArtistRepository.cs",
+              "RelativeDocumentMoniker": "GalleryManagement.Data\\Repositories\\ArtistRepository.cs",
+              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Data\\Repositories\\ArtistRepository.cs",
+              "RelativeToolTip": "GalleryManagement.Data\\Repositories\\ArtistRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADoAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T22:22:38.765Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ArtworkRepository.cs",
+              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Data\\Repositories\\ArtworkRepository.cs",
+              "RelativeDocumentMoniker": "GalleryManagement.Data\\Repositories\\ArtworkRepository.cs",
+              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Data\\Repositories\\ArtworkRepository.cs",
+              "RelativeToolTip": "GalleryManagement.Data\\Repositories\\ArtworkRepository.cs",
+              "ViewState": "AgIAADoAAAAAAAAAAAAwwEwAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T22:24:22.155Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ExhibitionRepository.cs",
+              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Data\\Repositories\\ExhibitionRepository.cs",
+              "RelativeDocumentMoniker": "GalleryManagement.Data\\Repositories\\ExhibitionRepository.cs",
+              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Data\\Repositories\\ExhibitionRepository.cs",
+              "RelativeToolTip": "GalleryManagement.Data\\Repositories\\ExhibitionRepository.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAqwEkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T22:25:25.44Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "GalleryManagement.Service",
+              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Service\\GalleryManagement.Service.csproj",
+              "RelativeDocumentMoniker": "GalleryManagement.Service\\GalleryManagement.Service.csproj",
+              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Service\\GalleryManagement.Service.csproj",
+              "RelativeToolTip": "GalleryManagement.Service\\GalleryManagement.Service.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-01-01T23:08:47.913Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Sale.cs",
+              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Entities\\Sale.cs",
+              "RelativeDocumentMoniker": "GalleryManagement.Core\\Entities\\Sale.cs",
+              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Entities\\Sale.cs",
+              "RelativeToolTip": "GalleryManagement.Core\\Entities\\Sale.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA4AAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T22:53:42.054Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\restful-code\\appsettings.json",
+              "RelativeDocumentMoniker": "restful-code\\appsettings.json",
+              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\restful-code\\appsettings.json",
+              "RelativeToolTip": "restful-code\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-12-28T22:34:08.406Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "20251228225224_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Data\\Migrations\\20251228225224_InitialCreate.cs",
+              "RelativeDocumentMoniker": "GalleryManagement.Data\\Migrations\\20251228225224_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Data\\Migrations\\20251228225224_InitialCreate.cs",
+              "RelativeToolTip": "GalleryManagement.Data\\Migrations\\20251228225224_InitialCreate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T22:52:25.034Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Exhibition.cs",
+              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Entities\\Exhibition.cs",
+              "RelativeDocumentMoniker": "GalleryManagement.Core\\Entities\\Exhibition.cs",
+              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Entities\\Exhibition.cs",
+              "RelativeToolTip": "GalleryManagement.Core\\Entities\\Exhibition.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAA5wBMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T22:31:18.967Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "SaleRepository.cs",
+              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Data\\Repositories\\SaleRepository.cs",
+              "RelativeDocumentMoniker": "GalleryManagement.Data\\Repositories\\SaleRepository.cs",
+              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Data\\Repositories\\SaleRepository.cs",
+              "RelativeToolTip": "GalleryManagement.Data\\Repositories\\SaleRepository.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAkwD4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T22:26:00.912Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\restful-code\\Program.cs",
+              "RelativeDocumentMoniker": "restful-code\\Program.cs",
+              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\restful-code\\Program.cs",
+              "RelativeToolTip": "restful-code\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAABXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T21:51:06.887Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Artist.cs",
+              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Entities\\Artist.cs",
+              "RelativeDocumentMoniker": "GalleryManagement.Core\\Entities\\Artist.cs",
+              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Entities\\Artist.cs",
+              "RelativeToolTip": "GalleryManagement.Core\\Entities\\Artist.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T22:30:46.622Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "artist_test.cs",
+              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\unitTest\\artist_test.cs",
+              "RelativeDocumentMoniker": "unitTest\\artist_test.cs",
+              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\unitTest\\artist_test.cs",
+              "RelativeToolTip": "unitTest\\artist_test.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAwAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T19:33:54.632Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ISaleRepository.cs",
+              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Interfaces\\ISaleRepository.cs",
+              "RelativeDocumentMoniker": "GalleryManagement.Core\\Interfaces\\ISaleRepository.cs",
+              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Interfaces\\ISaleRepository.cs",
+              "RelativeToolTip": "GalleryManagement.Core\\Interfaces\\ISaleRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T22:27:44.894Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "IExhibitionRepository.cs",
+              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Interfaces\\IExhibitionRepository.cs",
+              "RelativeDocumentMoniker": "GalleryManagement.Core\\Interfaces\\IExhibitionRepository.cs",
+              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Interfaces\\IExhibitionRepository.cs",
+              "RelativeToolTip": "GalleryManagement.Core\\Interfaces\\IExhibitionRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T22:27:40.037Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "IArtworkRepository.cs",
+              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Interfaces\\IArtworkRepository.cs",
+              "RelativeDocumentMoniker": "GalleryManagement.Core\\Interfaces\\IArtworkRepository.cs",
+              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Interfaces\\IArtworkRepository.cs",
+              "RelativeToolTip": "GalleryManagement.Core\\Interfaces\\IArtworkRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T22:27:33.281Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "IArtworkService.cs",
+              "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Interfaces\\IArtworkService.cs",
+              "RelativeDocumentMoniker": "GalleryManagement.Core\\Interfaces\\IArtworkService.cs",
+              "ToolTip": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\GalleryManagement.Core\\Interfaces\\IArtworkService.cs",
+              "RelativeToolTip": "GalleryManagement.Core\\Interfaces\\IArtworkService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T22:27:37.641Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 18,
               "Title": "ArtistsController.cs",
               "DocumentMoniker": "C:\\Users\\user1\\Documents\\\u05DC\u05D9\u05DE\u05D5\u05D3\u05D9\u05DD \u05E9\u05E0\u05D4 \u05D1\\dotnet\\restful API\\restful-code\\restful-code\\Controllers\\ArtistsController.cs",
@@ -336,8 +342,7 @@
               "RelativeToolTip": "restful-code\\Controllers\\ArtistsController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-28T19:34:54.662Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-28T19:34:54.662Z"
             }
           ]
         }

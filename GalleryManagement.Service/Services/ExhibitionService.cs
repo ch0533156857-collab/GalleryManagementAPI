@@ -5,23 +5,21 @@ namespace GalleryManagement.Service.Services
 {
     public class ExhibitionService : IExhibitionService
     {
-        private readonly IExhibitionRepository _repository;
-        private readonly IArtworkRepository _artworkRepository;
+        private readonly IRepositoryManager _repositoryManager;
 
-        public ExhibitionService(IExhibitionRepository repository, IArtworkRepository artworkRepository)
+        public ExhibitionService(IRepositoryManager repositoryManager)
         {
-            _repository = repository;
-            _artworkRepository = artworkRepository;
+            _repositoryManager = repositoryManager;
         }
 
         public List<Exhibition> GetAllExhibitions()
         {
-            return _repository.GetAll();
+            return _repositoryManager.Exhibitions.GetAll().ToList();
         }
 
         public List<Exhibition> GetActiveExhibitions()
         {
-            return _repository.GetActive();
+            return _repositoryManager.Exhibitions.GetActive();
         }
 
         public Exhibition? GetExhibitionById(int id)
@@ -30,7 +28,7 @@ namespace GalleryManagement.Service.Services
             {
                 throw new ArgumentException("ID חייב להיות חיובי");
             }
-            return _repository.GetById(id);
+            return _repositoryManager.Exhibitions.GetById(id);
         }
 
         public Exhibition CreateExhibition(Exhibition exhibition)
@@ -50,12 +48,15 @@ namespace GalleryManagement.Service.Services
                 throw new ArgumentException("תאריך התחלה לא יכול להיות בעבר");
             }
 
-            return _repository.Add(exhibition);
+            var result = _repositoryManager.Exhibitions.Add(exhibition);
+            _repositoryManager.Save();
+
+            return result;
         }
 
         public Exhibition UpdateExhibition(int id, Exhibition updatedExhibition)
         {
-            var existingExhibition = _repository.GetById(id);
+            var existingExhibition = _repositoryManager.Exhibitions.GetById(id);
             if (existingExhibition == null)
             {
                 throw new KeyNotFoundException($"תערוכה עם מזהה {id} לא נמצאה");
@@ -71,19 +72,29 @@ namespace GalleryManagement.Service.Services
                 throw new ArgumentException("תאריך סיום חייב להיות אחרי תאריך התחלה");
             }
 
-            updatedExhibition.Id = id;
-            return _repository.Update(updatedExhibition);
+            existingExhibition.Name = updatedExhibition.Name;
+            existingExhibition.Description = updatedExhibition.Description;
+            existingExhibition.StartDate = updatedExhibition.StartDate;
+            existingExhibition.EndDate = updatedExhibition.EndDate;
+            existingExhibition.Location = updatedExhibition.Location;
+            existingExhibition.CuratorName = updatedExhibition.CuratorName;
+            existingExhibition.ArtworkIds = updatedExhibition.ArtworkIds;
+
+            _repositoryManager.Exhibitions.Update(existingExhibition);
+            _repositoryManager.Save();
+
+            return existingExhibition;
         }
 
         public Exhibition AddArtworkToExhibition(int exhibitionId, int artworkId)
         {
-            var exhibition = _repository.GetById(exhibitionId);
+            var exhibition = _repositoryManager.Exhibitions.GetById(exhibitionId);
             if (exhibition == null)
             {
                 throw new KeyNotFoundException($"תערוכה עם מזהה {exhibitionId} לא נמצאה");
             }
 
-            var artwork = _artworkRepository.GetById(artworkId);
+            var artwork = _repositoryManager.Artworks.GetById(artworkId);
             if (artwork == null)
             {
                 throw new KeyNotFoundException($"יצירה עם מזהה {artworkId} לא נמצאה");
@@ -95,12 +106,15 @@ namespace GalleryManagement.Service.Services
             }
 
             exhibition.ArtworkIds.Add(artworkId);
-            return _repository.Update(exhibition);
+            _repositoryManager.Exhibitions.Update(exhibition);
+            _repositoryManager.Save();
+
+            return exhibition;
         }
 
         public Exhibition RemoveArtworkFromExhibition(int exhibitionId, int artworkId)
         {
-            var exhibition = _repository.GetById(exhibitionId);
+            var exhibition = _repositoryManager.Exhibitions.GetById(exhibitionId);
             if (exhibition == null)
             {
                 throw new KeyNotFoundException($"תערוכה עם מזהה {exhibitionId} לא נמצאה");
@@ -112,18 +126,22 @@ namespace GalleryManagement.Service.Services
             }
 
             exhibition.ArtworkIds.Remove(artworkId);
-            return _repository.Update(exhibition);
+            _repositoryManager.Exhibitions.Update(exhibition);
+            _repositoryManager.Save();
+
+            return exhibition;
         }
 
         public void DeleteExhibition(int id)
         {
-            var exhibition = _repository.GetById(id);
+            var exhibition = _repositoryManager.Exhibitions.GetById(id);
             if (exhibition == null)
             {
                 throw new KeyNotFoundException($"תערוכה עם מזהה {id} לא נמצאה");
             }
 
-            _repository.Delete(id);
+            _repositoryManager.Exhibitions.Delete(exhibition);
+            _repositoryManager.Save();
         }
     }
 }
