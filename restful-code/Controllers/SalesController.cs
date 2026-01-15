@@ -1,9 +1,10 @@
-﻿using GalleryManagement.Core.Entities;
+﻿using AutoMapper;
+using GalleryManagement.Core.DTOs;
+using GalleryManagement.Core.Entities;
 using GalleryManagement.Core.Interfaces;
-using GalleryManagement.Data.DataContext;
-using GalleryManagement.Data.Repositories;
-using GalleryManagement.Service.Services;
 using Microsoft.AspNetCore.Mvc;
+using restful_code.Models;
+using restful_code.Models.Sale;
 
 namespace restful_code.Controllers
 {
@@ -12,19 +13,22 @@ namespace restful_code.Controllers
     public class SalesController : ControllerBase
     {
         private readonly ISaleService _service;
+        private readonly IMapper _mapper;
 
-        public SalesController(ISaleService service)
+        public SalesController(ISaleService service, IMapper mapper)
         {
             _service = service;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Sale>> GetAllSales([FromQuery] string? status = null)
+        public ActionResult<IEnumerable<SaleDTO>> GetAllSales([FromQuery] string? status = null)
         {
             try
             {
                 var sales = _service.GetAllSales(status);
-                return Ok(sales);
+                var saleDTOs = _mapper.Map<List<SaleDTO>>(sales);
+                return Ok(saleDTOs);
             }
             catch (Exception ex)
             {
@@ -33,7 +37,7 @@ namespace restful_code.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Sale> GetSale(int id)
+        public ActionResult<SaleDTO> GetSale(int id)
         {
             try
             {
@@ -42,7 +46,8 @@ namespace restful_code.Controllers
                 {
                     return NotFound(new { message = $"מכירה עם מזהה {id} לא נמצאה" });
                 }
-                return Ok(sale);
+                var saleDTO = _mapper.Map<SaleDTO>(sale);
+                return Ok(saleDTO);
             }
             catch (ArgumentException ex)
             {
@@ -51,12 +56,13 @@ namespace restful_code.Controllers
         }
 
         [HttpGet("artwork/{artworkId}")]
-        public ActionResult<IEnumerable<Sale>> GetSalesByArtwork(int artworkId)
+        public ActionResult<IEnumerable<SaleDTO>> GetSalesByArtwork(int artworkId)
         {
             try
             {
                 var sales = _service.GetSalesByArtwork(artworkId);
-                return Ok(sales);
+                var saleDTOs = _mapper.Map<List<SaleDTO>>(sales);
+                return Ok(saleDTOs);
             }
             catch (KeyNotFoundException ex)
             {
@@ -65,12 +71,16 @@ namespace restful_code.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Sale> CreateSale([FromBody] Sale sale)
+        public ActionResult<SaleDTO> CreateSale([FromBody] CreateSaleModel model)
         {
             try
             {
+                // 🎯 נקי ופשוט
+                var sale = _mapper.Map<Sale>(model);
                 var created = _service.CreateSale(sale);
-                return CreatedAtAction(nameof(GetSale), new { id = created.Id }, created);
+                var saleDTO = _mapper.Map<SaleDTO>(created);
+
+                return CreatedAtAction(nameof(GetSale), new { id = created.Id }, saleDTO);
             }
             catch (KeyNotFoundException ex)
             {
@@ -87,12 +97,16 @@ namespace restful_code.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<Sale> UpdateSale(int id, [FromBody] Sale updatedSale)
+        public ActionResult<SaleDTO> UpdateSale(int id, [FromBody] UpdateSaleModel model)
         {
             try
             {
+                // 🎯 נקי ופשוט
+                var updatedSale = _mapper.Map<Sale>(model);
                 var sale = _service.UpdateSale(id, updatedSale);
-                return Ok(sale);
+                var saleDTO = _mapper.Map<SaleDTO>(sale);
+
+                return Ok(saleDTO);
             }
             catch (KeyNotFoundException ex)
             {
@@ -105,12 +119,13 @@ namespace restful_code.Controllers
         }
 
         [HttpPatch("{id}/status")]
-        public ActionResult<Sale> UpdateSaleStatus(int id, [FromBody] SaleStatusUpdate statusUpdate)
+        public ActionResult<SaleDTO> UpdateSaleStatus(int id, [FromBody] SaleStatusUpdate statusUpdate)
         {
             try
             {
                 var sale = _service.UpdateSaleStatus(id, statusUpdate.Status);
-                return Ok(sale);
+                var saleDTO = _mapper.Map<SaleDTO>(sale);
+                return Ok(saleDTO);
             }
             catch (KeyNotFoundException ex)
             {

@@ -1,6 +1,10 @@
-﻿using GalleryManagement.Core.Entities;
+﻿using AutoMapper;
+using GalleryManagement.Core.DTOs;
+using GalleryManagement.Core.Entities;
 using GalleryManagement.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using restful_code.Models;
+using restful_code.Models.Exhibition;
 
 namespace restful_code.Controllers
 {
@@ -9,19 +13,22 @@ namespace restful_code.Controllers
     public class ExhibitionsController : ControllerBase
     {
         private readonly IExhibitionService _service;
+        private readonly IMapper _mapper;
 
-        public ExhibitionsController(IExhibitionService service)
+        public ExhibitionsController(IExhibitionService service, IMapper mapper)
         {
             _service = service;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Exhibition>> GetAllExhibitions()
+        public ActionResult<IEnumerable<ExhibitionDTO>> GetAllExhibitions()
         {
             try
             {
                 var exhibitions = _service.GetAllExhibitions();
-                return Ok(exhibitions);
+                var exhibitionDTOs = _mapper.Map<List<ExhibitionDTO>>(exhibitions);
+                return Ok(exhibitionDTOs);
             }
             catch (Exception ex)
             {
@@ -30,12 +37,13 @@ namespace restful_code.Controllers
         }
 
         [HttpGet("active")]
-        public ActionResult<IEnumerable<Exhibition>> GetActiveExhibitions()
+        public ActionResult<IEnumerable<ExhibitionDTO>> GetActiveExhibitions()
         {
             try
             {
                 var exhibitions = _service.GetActiveExhibitions();
-                return Ok(exhibitions);
+                var exhibitionDTOs = _mapper.Map<List<ExhibitionDTO>>(exhibitions);
+                return Ok(exhibitionDTOs);
             }
             catch (Exception ex)
             {
@@ -44,7 +52,7 @@ namespace restful_code.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Exhibition> GetExhibition(int id)
+        public ActionResult<ExhibitionDTO> GetExhibition(int id)
         {
             try
             {
@@ -53,7 +61,8 @@ namespace restful_code.Controllers
                 {
                     return NotFound(new { message = $"תערוכה עם מזהה {id} לא נמצאה" });
                 }
-                return Ok(exhibition);
+                var exhibitionDTO = _mapper.Map<ExhibitionDTO>(exhibition);
+                return Ok(exhibitionDTO);
             }
             catch (ArgumentException ex)
             {
@@ -62,12 +71,16 @@ namespace restful_code.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Exhibition> CreateExhibition([FromBody] Exhibition exhibition)
+        public ActionResult<ExhibitionDTO> CreateExhibition([FromBody] CreateExhibitionModel model)
         {
             try
             {
+                // 🎯 נקי ופשוט
+                var exhibition = _mapper.Map<Exhibition>(model);
                 var created = _service.CreateExhibition(exhibition);
-                return CreatedAtAction(nameof(GetExhibition), new { id = created.Id }, created);
+                var exhibitionDTO = _mapper.Map<ExhibitionDTO>(created);
+
+                return CreatedAtAction(nameof(GetExhibition), new { id = created.Id }, exhibitionDTO);
             }
             catch (ArgumentException ex)
             {
@@ -76,12 +89,16 @@ namespace restful_code.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<Exhibition> UpdateExhibition(int id, [FromBody] Exhibition updatedExhibition)
+        public ActionResult<ExhibitionDTO> UpdateExhibition(int id, [FromBody] UpdateExhibitionModel model)
         {
             try
             {
+                // 🎯 נקי ופשוט
+                var updatedExhibition = _mapper.Map<Exhibition>(model);
                 var exhibition = _service.UpdateExhibition(id, updatedExhibition);
-                return Ok(exhibition);
+                var exhibitionDTO = _mapper.Map<ExhibitionDTO>(exhibition);
+
+                return Ok(exhibitionDTO);
             }
             catch (KeyNotFoundException ex)
             {
@@ -92,13 +109,15 @@ namespace restful_code.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+
         [HttpPost("{exhibitionId}/artworks/{artworkId}")]
-        public ActionResult<Exhibition> AddArtworkToExhibition(int exhibitionId, int artworkId)
+        public ActionResult<ExhibitionDTO> AddArtworkToExhibition(int exhibitionId, int artworkId)
         {
             try
             {
                 var exhibition = _service.AddArtworkToExhibition(exhibitionId, artworkId);
-                return Ok(exhibition);
+                var exhibitionDTO = _mapper.Map<ExhibitionDTO>(exhibition);
+                return Ok(exhibitionDTO);
             }
             catch (KeyNotFoundException ex)
             {
@@ -111,12 +130,13 @@ namespace restful_code.Controllers
         }
 
         [HttpDelete("{exhibitionId}/artworks/{artworkId}")]
-        public ActionResult<Exhibition> RemoveArtworkFromExhibition(int exhibitionId, int artworkId)
+        public ActionResult<ExhibitionDTO> RemoveArtworkFromExhibition(int exhibitionId, int artworkId)
         {
             try
             {
                 var exhibition = _service.RemoveArtworkFromExhibition(exhibitionId, artworkId);
-                return Ok(exhibition);
+                var exhibitionDTO = _mapper.Map<ExhibitionDTO>(exhibition);
+                return Ok(exhibitionDTO);
             }
             catch (KeyNotFoundException ex)
             {

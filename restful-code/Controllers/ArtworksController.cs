@@ -1,6 +1,10 @@
-﻿using GalleryManagement.Core.Entities;
+﻿using AutoMapper;
+using GalleryManagement.Core.DTOs;
+using GalleryManagement.Core.Entities;
 using GalleryManagement.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using restful_code.Models;
+using restful_code.Models.Artwork;
 
 namespace restful_code.Controllers
 {
@@ -9,19 +13,22 @@ namespace restful_code.Controllers
     public class ArtworksController : ControllerBase
     {
         private readonly IArtworkService _service;
+        private readonly IMapper _mapper;
 
-        public ArtworksController(IArtworkService service)
+        public ArtworksController(IArtworkService service, IMapper mapper)
         {
             _service = service;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Artwork>> GetAllArtworks([FromQuery] string? status = null)
+        public ActionResult<IEnumerable<ArtworkDTO>> GetAllArtworks([FromQuery] string? status = null)
         {
             try
             {
                 var artworks = _service.GetAllArtworks(status);
-                return Ok(artworks);
+                var artworkDTOs = _mapper.Map<List<ArtworkDTO>>(artworks);
+                return Ok(artworkDTOs);
             }
             catch (Exception ex)
             {
@@ -30,7 +37,7 @@ namespace restful_code.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Artwork> GetArtwork(int id)
+        public ActionResult<ArtworkDTO> GetArtwork(int id)
         {
             try
             {
@@ -39,7 +46,8 @@ namespace restful_code.Controllers
                 {
                     return NotFound(new { message = $"יצירה עם מזהה {id} לא נמצאה" });
                 }
-                return Ok(artwork);
+                var artworkDTO = _mapper.Map<ArtworkDTO>(artwork);
+                return Ok(artworkDTO);
             }
             catch (ArgumentException ex)
             {
@@ -48,12 +56,13 @@ namespace restful_code.Controllers
         }
 
         [HttpGet("artist/{artistId}")]
-        public ActionResult<IEnumerable<Artwork>> GetArtworksByArtist(int artistId)
+        public ActionResult<IEnumerable<ArtworkDTO>> GetArtworksByArtist(int artistId)
         {
             try
             {
                 var artworks = _service.GetArtworksByArtist(artistId);
-                return Ok(artworks);
+                var artworkDTOs = _mapper.Map<List<ArtworkDTO>>(artworks);
+                return Ok(artworkDTOs);
             }
             catch (KeyNotFoundException ex)
             {
@@ -62,12 +71,16 @@ namespace restful_code.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Artwork> CreateArtwork([FromBody] Artwork artwork)
+        public ActionResult<ArtworkDTO> CreateArtwork([FromBody] CreateArtworkModel model)
         {
             try
             {
+                // 🎯 נקי ופשוט
+                var artwork = _mapper.Map<Artwork>(model);
                 var created = _service.CreateArtwork(artwork);
-                return CreatedAtAction(nameof(GetArtwork), new { id = created.Id }, created);
+                var artworkDTO = _mapper.Map<ArtworkDTO>(created);
+
+                return CreatedAtAction(nameof(GetArtwork), new { id = created.Id }, artworkDTO);
             }
             catch (KeyNotFoundException ex)
             {
@@ -80,12 +93,16 @@ namespace restful_code.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<Artwork> UpdateArtwork(int id, [FromBody] Artwork updatedArtwork)
+        public ActionResult<ArtworkDTO> UpdateArtwork(int id, [FromBody] UpdateArtworkModel model)
         {
             try
             {
+                // 🎯 נקי ופשוט
+                var updatedArtwork = _mapper.Map<Artwork>(model);
                 var artwork = _service.UpdateArtwork(id, updatedArtwork);
-                return Ok(artwork);
+                var artworkDTO = _mapper.Map<ArtworkDTO>(artwork);
+
+                return Ok(artworkDTO);
             }
             catch (KeyNotFoundException ex)
             {
@@ -98,12 +115,13 @@ namespace restful_code.Controllers
         }
 
         [HttpPatch("{id}/status")]
-        public ActionResult<Artwork> UpdateArtworkStatus(int id, [FromBody] StatusUpdate statusUpdate)
+        public ActionResult<ArtworkDTO> UpdateArtworkStatus(int id, [FromBody] StatusUpdate statusUpdate)
         {
             try
             {
                 var artwork = _service.UpdateArtworkStatus(id, statusUpdate.Status);
-                return Ok(artwork);
+                var artworkDTO = _mapper.Map<ArtworkDTO>(artwork);
+                return Ok(artworkDTO);
             }
             catch (KeyNotFoundException ex)
             {
