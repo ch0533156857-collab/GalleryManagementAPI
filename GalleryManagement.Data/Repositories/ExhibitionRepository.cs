@@ -1,6 +1,7 @@
 ﻿using GalleryManagement.Core.Entities;
 using GalleryManagement.Core.Interfaces;
 using GalleryManagement.Data.DataContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace GalleryManagement.Data.Repositories
 {
@@ -10,12 +11,12 @@ namespace GalleryManagement.Data.Repositories
         {
         }
 
-        public List<Exhibition> GetActive()
+        public async Task<List<Exhibition>> GetActiveAsync()
         {
             var today = DateTime.Now;
-            return _dbSet
+            return await _dbSet
                 .Where(e => e.StartDate <= today && e.EndDate >= today)
-                .ToList();
+                .ToListAsync();
         }
     }
 }

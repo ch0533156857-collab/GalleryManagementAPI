@@ -12,42 +12,43 @@ namespace GalleryManagement.Service.Services
                 _repositoryManager = repositoryManager;
             }
 
-            public List<Artwork> GetAllArtworks(string? status = null)
+            public async Task<List<Artwork>> GetAllArtworksAsync(string? status = null)
             {
                 if (string.IsNullOrEmpty(status))
                 {
-                    return _repositoryManager.Artworks.GetAll().ToList();
-                }
-                return _repositoryManager.Artworks.GetByStatus(status);
+                    var artworks = await _repositoryManager.Artworks.GetAllAsync();
+                    return artworks.ToList();
+            }
+                return await _repositoryManager.Artworks.GetByStatusAsync(status);
             }
 
-            public List<Artwork> GetArtworksByArtist(int artistId)
+            public async Task<List<Artwork>> GetArtworksByArtistAsync(int artistId)
             {
-                var artist = _repositoryManager.Artists.GetById(artistId);
+                var artist = await _repositoryManager.Artists.GetByIdAsync(artistId);
                 if (artist == null)
                 {
                     throw new KeyNotFoundException($"אמן עם מזהה {artistId} לא נמצא");
                 }
-                return _repositoryManager.Artworks.GetByArtistId(artistId);
+                return await _repositoryManager.Artworks.GetByArtistIdAsync(artistId);
             }
 
-            public Artwork? GetArtworkById(int id)
+            public async Task<Artwork?> GetArtworkByIdAsync(int id)
             {
                 if (id <= 0)
                 {
                     throw new ArgumentException("ID חייב להיות חיובי");
                 }
-                return _repositoryManager.Artworks.GetById(id);
+                return await _repositoryManager.Artworks.GetByIdAsync(id);
             }
 
-            public Artwork CreateArtwork(Artwork artwork)
+            public async Task<Artwork> CreateArtworkAsync(Artwork artwork)
             {
                 if (string.IsNullOrWhiteSpace(artwork.Title))
                 {
                     throw new ArgumentException("כותרת היצירה היא שדה חובה");
                 }
 
-                var artist = _repositoryManager.Artists.GetById(artwork.ArtistId);
+                var artist = await _repositoryManager.Artists.GetByIdAsync(artwork.ArtistId);
                 if (artist == null)
                 {
                     throw new KeyNotFoundException($"אמן עם מזהה {artwork.ArtistId} לא נמצא");
@@ -64,15 +65,15 @@ namespace GalleryManagement.Service.Services
                 }
 
                 artwork.Status = "available";
-                var result = _repositoryManager.Artworks.Add(artwork);
-                _repositoryManager.Save();
+                var result = await _repositoryManager.Artworks.AddAsync(artwork);
+                await _repositoryManager.SaveAsync();
 
                 return result;
             }
 
-            public Artwork UpdateArtwork(int id, Artwork updatedArtwork)
+            public async Task<Artwork> UpdateArtworkAsync(int id, Artwork updatedArtwork)
             {
-                var existingArtwork = _repositoryManager.Artworks.GetById(id);
+                var existingArtwork = await _repositoryManager.Artworks.GetByIdAsync(id);
                 if (existingArtwork == null)
                 {
                     throw new KeyNotFoundException($"יצירה עם מזהה {id} לא נמצאה");
@@ -97,15 +98,15 @@ namespace GalleryManagement.Service.Services
                 existingArtwork.Status = updatedArtwork.Status;
                 existingArtwork.Description = updatedArtwork.Description;
 
-                _repositoryManager.Artworks.Update(existingArtwork);
-                _repositoryManager.Save();
+                await _repositoryManager.Artworks.UpdateAsync(existingArtwork);
+                await _repositoryManager.SaveAsync();
 
                 return existingArtwork;
             }
 
-            public Artwork UpdateArtworkStatus(int id, string status)
+            public async Task<Artwork> UpdateArtworkStatusAsync(int id, string status)
             {
-                var artwork = _repositoryManager.Artworks.GetById(id);
+                var artwork = await _repositoryManager.Artworks.GetByIdAsync(id);
                 if (artwork == null)
                 {
                     throw new KeyNotFoundException($"יצירה עם מזהה {id} לא נמצאה");
@@ -118,22 +119,22 @@ namespace GalleryManagement.Service.Services
                 }
 
                 artwork.Status = status;
-                _repositoryManager.Artworks.Update(artwork);
-                _repositoryManager.Save();
+                await _repositoryManager.Artworks.UpdateAsync(artwork);
+                await _repositoryManager.SaveAsync();
 
                 return artwork;
             }
 
-            public void DeleteArtwork(int id)
+            public async Task DeleteArtworkAsync(int id)
             {
-                var artwork = _repositoryManager.Artworks.GetById(id);
+                var artwork = await _repositoryManager.Artworks.GetByIdAsync(id);
                 if (artwork == null)
                 {
                     throw new KeyNotFoundException($"יצירה עם מזהה {id} לא נמצאה");
                 }
 
-                _repositoryManager.Artworks.Delete(artwork);
-                _repositoryManager.Save();
+                await _repositoryManager.Artworks.DeleteAsync(artwork);
+                await _repositoryManager.SaveAsync();
             }
         }
 }

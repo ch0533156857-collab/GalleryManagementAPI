@@ -9,11 +9,11 @@ namespace GalleryManagement.Core.Interfaces
 {
     public interface IArtistService
     {
-        List<Artist> GetAllArtists(string? status = null);
-        Artist? GetArtistById(int id);
-        Artist CreateArtist(Artist artist);
-        Artist UpdateArtist(int id, Artist updatedArtist);
-        Artist UpdateArtistStatus(int id, string status);
-        List<Artwork> GetArtistArtworks(int id);
+        Task<List<Artist>> GetAllArtistsAsync(string? status = null);
+        Task<Artist?> GetArtistByIdAsync(int id);
+        Task<Artist> CreateArtistAsync(Artist artist);
+        Task<Artist> UpdateArtistAsync(int id, Artist updatedArtist);
+        Task<Artist> UpdateArtistStatusAsync(int id, string status);
+        Task<List<Artwork>> GetArtistArtworksAsync(int id);
     }
 }

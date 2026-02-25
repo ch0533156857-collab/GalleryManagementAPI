@@ -13,6 +13,6 @@ namespace GalleryManagement.Core.Interfaces
         ISaleRepository Sales { get; }
         IExhibitionRepository Exhibitions { get; }
 
-        void Save();
+        Task SaveAsync();
     }
 }

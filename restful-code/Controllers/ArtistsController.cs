@@ -22,11 +22,11 @@ namespace restful_code.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ArtistDTO>> GetAllArtists([FromQuery] string? status = null)
+        public async Task<ActionResult<IEnumerable<ArtistDTO>>> GetAllArtists([FromQuery] string? status = null)
         {
             try
             {
-                var artists = _service.GetAllArtists(status);
+                var artists = await _service.GetAllArtistsAsync(status);
                 var artistDTOs = _mapper.Map<List<ArtistDTO>>(artists);
                 return Ok(artistDTOs);
             }
@@ -37,11 +37,11 @@ namespace restful_code.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ArtistDTO> GetArtist(int id)
+        public async Task<ActionResult<ArtistDTO>> GetArtist(int id)
         {
             try
             {
-                var artist = _service.GetArtistById(id);
+                var artist = await _service.GetArtistByIdAsync(id);
                 if (artist == null)
                 {
                     return NotFound(new { message = $"אמן עם מזהה {id} לא נמצא" });
@@ -56,13 +56,12 @@ namespace restful_code.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ArtistDTO> CreateArtist([FromBody] CreateArtistModel model)
+        public async Task<ActionResult<ArtistDTO>> CreateArtistAsync([FromBody] CreateArtistModel model)
         {
             try
             {
-                // 🎯 פשוט ונקי - AutoMapper עושה הכל!
                 var artist = _mapper.Map<Artist>(model);
-                var created = _service.CreateArtist(artist);
+                var created = await _service.CreateArtistAsync(artist);
                 var artistDTO = _mapper.Map<ArtistDTO>(created);
 
                 return CreatedAtAction(nameof(GetArtist), new { id = created.Id }, artistDTO);
@@ -74,13 +73,12 @@ namespace restful_code.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<ArtistDTO> UpdateArtist(int id, [FromBody] UpdateArtistModel model)
+        public async Task<ActionResult<ArtistDTO>> UpdateArtist(int id, [FromBody] UpdateArtistModel model)
         {
             try
             {
-                // 🎯 פשוט ונקי
                 var updatedArtist = _mapper.Map<Artist>(model);
-                var artist = _service.UpdateArtist(id, updatedArtist);
+                var artist = await _service.UpdateArtistAsync(id, updatedArtist);
                 var artistDTO = _mapper.Map<ArtistDTO>(artist);
 
                 return Ok(artistDTO);
@@ -96,11 +94,11 @@ namespace restful_code.Controllers
         }
 
         [HttpPatch("{id}/status")]
-        public ActionResult<ArtistDTO> UpdateArtistStatus(int id, [FromBody] StatusUpdate statusUpdate)
+        public async Task<ActionResult<ArtistDTO>> UpdateArtistStatus(int id, [FromBody] StatusUpdate statusUpdate)
         {
             try
             {
-                var artist = _service.UpdateArtistStatus(id, statusUpdate.Status);
+                var artist = await _service.UpdateArtistStatusAsync(id, statusUpdate.Status);
                 var artistDTO = _mapper.Map<ArtistDTO>(artist);
                 return Ok(artistDTO);
             }
@@ -115,11 +113,11 @@ namespace restful_code.Controllers
         }
 
         [HttpGet("{id}/artworks")]
-        public ActionResult<IEnumerable<ArtworkDTO>> GetArtistArtworks(int id)
+        public async Task<ActionResult<IEnumerable<ArtworkDTO>>> GetArtistArtworks(int id)
         {
             try
             {
-                var artworks = _service.GetArtistArtworks(id);
+                var artworks = await _service.GetArtistArtworksAsync(id);
                 var artworkDTOs = _mapper.Map<List<ArtworkDTO>>(artworks);
                 return Ok(artworkDTOs);
             }

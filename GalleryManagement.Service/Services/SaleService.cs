@@ -11,35 +11,36 @@ namespace GalleryManagement.Service.Services
             _repositoryManager = repositoryManager;
         }
 
-        public List<Sale> GetAllSales(string? status = null)
+        public async Task<List<Sale>> GetAllSalesAsync(string? status = null)
         {
             if (string.IsNullOrEmpty(status))
             {
-                return _repositoryManager.Sales.GetAll().ToList();
+                var sales = await _repositoryManager.Sales.GetAllAsync();
+                return sales.ToList();
             }
-            return _repositoryManager.Sales.GetByStatus(status);
+            return await _repositoryManager.Sales.GetByStatusAsync(status);
         }
 
-        public List<Sale> GetSalesByArtwork(int artworkId)
+        public async Task<List<Sale>> GetSalesByArtworkAsync(int artworkId)
         {
-            var artwork = _repositoryManager.Artworks.GetById(artworkId);
+            var artwork = await _repositoryManager.Artworks.GetByIdAsync(artworkId);
             if (artwork == null)
             {
                 throw new KeyNotFoundException($"יצירה עם מזהה {artworkId} לא נמצאה");
             }
-            return _repositoryManager.Sales.GetByArtworkId(artworkId);
+            return await _repositoryManager.Sales.GetByArtworkIdAsync(artworkId);
         }
 
-        public Sale? GetSaleById(int id)
+        public async Task<Sale?> GetSaleByIdAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException("ID חייב להיות חיובי");
             }
-            return _repositoryManager.Sales.GetById(id);
+            return await _repositoryManager.Sales.GetByIdAsync(id);
         }
 
-        public Sale CreateSale(Sale sale)
+        public async Task<Sale> CreateSaleAsync(Sale sale)
         {
             if (string.IsNullOrWhiteSpace(sale.BuyerName))
             {
@@ -51,7 +52,7 @@ namespace GalleryManagement.Service.Services
                 throw new ArgumentException("אימייל הקונה הוא שדה חובה");
             }
 
-            var artwork = _repositoryManager.Artworks.GetById(sale.ArtworkId);
+            var artwork = await _repositoryManager.Artworks.GetByIdAsync(sale.ArtworkId);
             if (artwork == null)
             {
                 throw new KeyNotFoundException($"יצירה עם מזהה {sale.ArtworkId} לא נמצאה");
@@ -71,21 +72,21 @@ namespace GalleryManagement.Service.Services
             sale.SaleDate = DateTime.Now;
 
             // הוספת המכירה
-            var createdSale = _repositoryManager.Sales.Add(sale);
+            var createdSale = await _repositoryManager.Sales.AddAsync(sale);
 
             // עדכון סטטוס היצירה
             artwork.Status = "sold";
-            _repositoryManager.Artworks.Update(artwork);
+            await _repositoryManager.Artworks.UpdateAsync(artwork);
 
             // שמירה של שתי הפעולות ביחד - טרנזקציה!
-            _repositoryManager.Save();
+            await _repositoryManager.SaveAsync();
 
             return createdSale;
         }
 
-        public Sale UpdateSale(int id, Sale updatedSale)
+        public async Task<Sale> UpdateSaleAsync(int id, Sale updatedSale)
         {
-            var existingSale = _repositoryManager.Sales.GetById(id);
+            var existingSale = await _repositoryManager.Sales.GetByIdAsync(id);
             if (existingSale == null)
             {
                 throw new KeyNotFoundException($"מכירה עם מזהה {id} לא נמצאה");
@@ -108,15 +109,15 @@ namespace GalleryManagement.Service.Services
             existingSale.PaymentMethod = updatedSale.PaymentMethod;
             existingSale.Status = updatedSale.Status;
 
-            _repositoryManager.Sales.Update(existingSale);
-            _repositoryManager.Save();
+            await _repositoryManager.Sales.UpdateAsync(existingSale);
+            await _repositoryManager.SaveAsync();
 
             return existingSale;
         }
 
-        public Sale UpdateSaleStatus(int id, string status)
+        public async Task<Sale> UpdateSaleStatusAsync(int id, string status)
         {
-            var sale = _repositoryManager.Sales.GetById(id);
+            var sale = await _repositoryManager.Sales.GetByIdAsync(id);
             if (sale == null)
             {
                 throw new KeyNotFoundException($"מכירה עם מזהה {id} לא נמצאה");
@@ -129,22 +130,22 @@ namespace GalleryManagement.Service.Services
             }
 
             sale.Status = status;
-            _repositoryManager.Sales.Update(sale);
-            _repositoryManager.Save();
+            await _repositoryManager.Sales.UpdateAsync(sale);
+            await _repositoryManager.SaveAsync();
 
             return sale;
         }
 
-        public void DeleteSale(int id)
+        public async Task DeleteSaleAsync(int id)
         {
-            var sale = _repositoryManager.Sales.GetById(id);
+            var sale = await _repositoryManager.Sales.GetByIdAsync(id);
             if (sale == null)
             {
                 throw new KeyNotFoundException($"מכירה עם מזהה {id} לא נמצאה");
             }
 
-            _repositoryManager.Sales.Delete(sale);
-            _repositoryManager.Save();
+            await _repositoryManager.Sales.DeleteAsync(sale);
+            await _repositoryManager.SaveAsync();
         }
     }
 }

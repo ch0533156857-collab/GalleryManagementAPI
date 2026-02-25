@@ -22,11 +22,11 @@ namespace restful_code.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ExhibitionDTO>> GetAllExhibitions()
+        public async Task<ActionResult<IEnumerable<ExhibitionDTO>>> GetAllExhibitions()
         {
             try
             {
-                var exhibitions = _service.GetAllExhibitions();
+                var exhibitions = await _service.GetAllExhibitionsAsync();
                 var exhibitionDTOs = _mapper.Map<List<ExhibitionDTO>>(exhibitions);
                 return Ok(exhibitionDTOs);
             }
@@ -37,11 +37,11 @@ namespace restful_code.Controllers
         }
 
         [HttpGet("active")]
-        public ActionResult<IEnumerable<ExhibitionDTO>> GetActiveExhibitions()
+        public async Task<ActionResult<IEnumerable<ExhibitionDTO>>> GetActiveExhibitions()
         {
             try
             {
-                var exhibitions = _service.GetActiveExhibitions();
+                var exhibitions = await _service.GetActiveExhibitionsAsync();
                 var exhibitionDTOs = _mapper.Map<List<ExhibitionDTO>>(exhibitions);
                 return Ok(exhibitionDTOs);
             }
@@ -52,11 +52,11 @@ namespace restful_code.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ExhibitionDTO> GetExhibition(int id)
+        public async Task<ActionResult<ExhibitionDTO>> GetExhibition(int id)
         {
             try
             {
-                var exhibition = _service.GetExhibitionById(id);
+                var exhibition = await _service.GetExhibitionByIdAsync(id);
                 if (exhibition == null)
                 {
                     return NotFound(new { message = $"תערוכה עם מזהה {id} לא נמצאה" });
@@ -71,13 +71,12 @@ namespace restful_code.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ExhibitionDTO> CreateExhibition([FromBody] CreateExhibitionModel model)
+        public async Task<ActionResult<ExhibitionDTO>> CreateExhibition([FromBody] CreateExhibitionModel model)
         {
             try
             {
-                // 🎯 נקי ופשוט
                 var exhibition = _mapper.Map<Exhibition>(model);
-                var created = _service.CreateExhibition(exhibition);
+                var created = await _service.CreateExhibitionAsync(exhibition);
                 var exhibitionDTO = _mapper.Map<ExhibitionDTO>(created);
 
                 return CreatedAtAction(nameof(GetExhibition), new { id = created.Id }, exhibitionDTO);
@@ -89,13 +88,12 @@ namespace restful_code.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<ExhibitionDTO> UpdateExhibition(int id, [FromBody] UpdateExhibitionModel model)
+        public async Task<ActionResult<ExhibitionDTO>> UpdateExhibition(int id, [FromBody] UpdateExhibitionModel model)
         {
             try
             {
-                // 🎯 נקי ופשוט
                 var updatedExhibition = _mapper.Map<Exhibition>(model);
-                var exhibition = _service.UpdateExhibition(id, updatedExhibition);
+                var exhibition = await _service.UpdateExhibitionAsync(id, updatedExhibition);
                 var exhibitionDTO = _mapper.Map<ExhibitionDTO>(exhibition);
 
                 return Ok(exhibitionDTO);
@@ -111,11 +109,11 @@ namespace restful_code.Controllers
         }
 
         [HttpPost("{exhibitionId}/artworks/{artworkId}")]
-        public ActionResult<ExhibitionDTO> AddArtworkToExhibition(int exhibitionId, int artworkId)
+        public async Task<ActionResult<ExhibitionDTO>> AddArtworkToExhibition(int exhibitionId, int artworkId)
         {
             try
             {
-                var exhibition = _service.AddArtworkToExhibition(exhibitionId, artworkId);
+                var exhibition = await _service.AddArtworkToExhibitionAsync(exhibitionId, artworkId);
                 var exhibitionDTO = _mapper.Map<ExhibitionDTO>(exhibition);
                 return Ok(exhibitionDTO);
             }
@@ -130,11 +128,11 @@ namespace restful_code.Controllers
         }
 
         [HttpDelete("{exhibitionId}/artworks/{artworkId}")]
-        public ActionResult<ExhibitionDTO> RemoveArtworkFromExhibition(int exhibitionId, int artworkId)
+        public async Task<ActionResult<ExhibitionDTO>> RemoveArtworkFromExhibition(int exhibitionId, int artworkId)
         {
             try
             {
-                var exhibition = _service.RemoveArtworkFromExhibition(exhibitionId, artworkId);
+                var exhibition = await _service.RemoveArtworkFromExhibitionAsync(exhibitionId, artworkId);
                 var exhibitionDTO = _mapper.Map<ExhibitionDTO>(exhibition);
                 return Ok(exhibitionDTO);
             }
@@ -149,11 +147,11 @@ namespace restful_code.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult DeleteExhibition(int id)
+        public async Task<ActionResult> DeleteExhibition(int id)
         {
             try
             {
-                _service.DeleteExhibition(id);
+                await _service.DeleteExhibitionAsync(id);
                 return NoContent();
             }
             catch (KeyNotFoundException ex)

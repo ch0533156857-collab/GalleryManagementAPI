@@ -9,13 +9,13 @@ namespace GalleryManagement.Core.Interfaces
 {
     public interface IExhibitionService
     {
-        List<Exhibition> GetAllExhibitions();
-        List<Exhibition> GetActiveExhibitions();
-        Exhibition? GetExhibitionById(int id);
-        Exhibition CreateExhibition(Exhibition exhibition);
-        Exhibition UpdateExhibition(int id, Exhibition updatedExhibition);
-        Exhibition AddArtworkToExhibition(int exhibitionId, int artworkId);
-        Exhibition RemoveArtworkFromExhibition(int exhibitionId, int artworkId);
-        void DeleteExhibition(int id);
+        Task<List<Exhibition>> GetAllExhibitionsAsync();
+        Task<List<Exhibition>> GetActiveExhibitionsAsync();
+        Task<Exhibition?> GetExhibitionByIdAsync(int id);
+        Task<Exhibition> CreateExhibitionAsync(Exhibition exhibition);
+        Task<Exhibition> UpdateExhibitionAsync(int id, Exhibition updatedExhibition);
+        Task<Exhibition> AddArtworkToExhibitionAsync(int exhibitionId, int artworkId);
+        Task<Exhibition> RemoveArtworkFromExhibitionAsync(int exhibitionId, int artworkId);
+        Task DeleteExhibitionAsync(int id);
     }
 }

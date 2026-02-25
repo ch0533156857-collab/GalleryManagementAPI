@@ -6,10 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GalleryManagement.Core.Interfaces
-{
+{ 
     public interface ISaleRepository : IRepository<Sale>
     {
-        List<Sale> GetByStatus(String status);
-        List<Sale> GetByArtworkId(int ArtworkId);
+        Task<List<Sale>> GetByStatusAsync(string status);
+        Task<List<Sale>> GetByArtworkIdAsync(int artworkId);
     }
 }

@@ -6,6 +6,7 @@ using GalleryManagement.Service.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using restful_code.Mapping;
+using restful_code.Middlewares;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -50,6 +51,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ShabbatMiddleware>();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();

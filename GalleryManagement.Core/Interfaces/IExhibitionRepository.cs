@@ -9,7 +9,7 @@ namespace GalleryManagement.Core.Interfaces
 {
     public interface IExhibitionRepository : IRepository<Exhibition>
     {
-        List<Exhibition> GetActive();
+        Task<List<Exhibition>> GetActiveAsync();
 
     }
 }

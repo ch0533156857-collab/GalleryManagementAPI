@@ -12,26 +12,26 @@ namespace GalleryManagement.Service.Services
             _repositoryManager = repositoryManager;
         }
 
-        public List<Exhibition> GetAllExhibitions()
+        public async Task<List<Exhibition>> GetAllExhibitionsAsync()
         {
-            return _repositoryManager.Exhibitions.GetAll().ToList();
+            return (await _repositoryManager.Exhibitions.GetAllAsync()).ToList();
         }
 
-        public List<Exhibition> GetActiveExhibitions()
+        public async Task<List<Exhibition>> GetActiveExhibitionsAsync()
         {
-            return _repositoryManager.Exhibitions.GetActive();
+            return await _repositoryManager.Exhibitions.GetActiveAsync();
         }
 
-        public Exhibition? GetExhibitionById(int id)
+        public async Task<Exhibition?> GetExhibitionByIdAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException("ID חייב להיות חיובי");
             }
-            return _repositoryManager.Exhibitions.GetById(id);
+            return await _repositoryManager.Exhibitions.GetByIdAsync(id);
         }
 
-        public Exhibition CreateExhibition(Exhibition exhibition)
+        public async Task<Exhibition> CreateExhibitionAsync(Exhibition exhibition)
         {
             if (string.IsNullOrWhiteSpace(exhibition.Name))
             {
@@ -48,15 +48,15 @@ namespace GalleryManagement.Service.Services
                 throw new ArgumentException("תאריך התחלה לא יכול להיות בעבר");
             }
 
-            var result = _repositoryManager.Exhibitions.Add(exhibition);
-            _repositoryManager.Save();
+            var result = await _repositoryManager.Exhibitions.AddAsync(exhibition);
+            await _repositoryManager.SaveAsync();
 
             return result;
         }
 
-        public Exhibition UpdateExhibition(int id, Exhibition updatedExhibition)
+        public async Task<Exhibition> UpdateExhibitionAsync(int id, Exhibition updatedExhibition)
         {
-            var existingExhibition = _repositoryManager.Exhibitions.GetById(id);
+            var existingExhibition = await _repositoryManager.Exhibitions.GetByIdAsync(id);
             if (existingExhibition == null)
             {
                 throw new KeyNotFoundException($"תערוכה עם מזהה {id} לא נמצאה");
@@ -80,21 +80,21 @@ namespace GalleryManagement.Service.Services
             existingExhibition.CuratorName = updatedExhibition.CuratorName;
             existingExhibition.ArtworkIds = updatedExhibition.ArtworkIds;
 
-            _repositoryManager.Exhibitions.Update(existingExhibition);
-            _repositoryManager.Save();
+            await _repositoryManager.Exhibitions.UpdateAsync(existingExhibition);
+            await _repositoryManager.SaveAsync();
 
             return existingExhibition;
         }
 
-        public Exhibition AddArtworkToExhibition(int exhibitionId, int artworkId)
+        public async Task<Exhibition> AddArtworkToExhibitionAsync(int exhibitionId, int artworkId)
         {
-            var exhibition = _repositoryManager.Exhibitions.GetById(exhibitionId);
+            var exhibition = await _repositoryManager.Exhibitions.GetByIdAsync(exhibitionId);
             if (exhibition == null)
             {
                 throw new KeyNotFoundException($"תערוכה עם מזהה {exhibitionId} לא נמצאה");
             }
 
-            var artwork = _repositoryManager.Artworks.GetById(artworkId);
+            var artwork = _repositoryManager.Artworks.GetByIdAsync(artworkId);
             if (artwork == null)
             {
                 throw new KeyNotFoundException($"יצירה עם מזהה {artworkId} לא נמצאה");
@@ -106,15 +106,15 @@ namespace GalleryManagement.Service.Services
             }
 
             exhibition.ArtworkIds.Add(artworkId);
-            _repositoryManager.Exhibitions.Update(exhibition);
-            _repositoryManager.Save();
+            await _repositoryManager.Exhibitions.UpdateAsync(exhibition);
+            await _repositoryManager.SaveAsync();
 
             return exhibition;
         }
 
-        public Exhibition RemoveArtworkFromExhibition(int exhibitionId, int artworkId)
+        public async Task<Exhibition> RemoveArtworkFromExhibitionAsync(int exhibitionId, int artworkId)
         {
-            var exhibition = _repositoryManager.Exhibitions.GetById(exhibitionId);
+            var exhibition = await _repositoryManager.Exhibitions.GetByIdAsync(exhibitionId);
             if (exhibition == null)
             {
                 throw new KeyNotFoundException($"תערוכה עם מזהה {exhibitionId} לא נמצאה");
@@ -126,22 +126,22 @@ namespace GalleryManagement.Service.Services
             }
 
             exhibition.ArtworkIds.Remove(artworkId);
-            _repositoryManager.Exhibitions.Update(exhibition);
-            _repositoryManager.Save();
+            await _repositoryManager.Exhibitions.UpdateAsync(exhibition);
+            await _repositoryManager.SaveAsync();
 
             return exhibition;
         }
 
-        public void DeleteExhibition(int id)
+        public async Task DeleteExhibitionAsync(int id)
         {
-            var exhibition = _repositoryManager.Exhibitions.GetById(id);
+            var exhibition = await _repositoryManager.Exhibitions.GetByIdAsync(id);
             if (exhibition == null)
             {
                 throw new KeyNotFoundException($"תערוכה עם מזהה {id} לא נמצאה");
             }
 
-            _repositoryManager.Exhibitions.Delete(exhibition);
-            _repositoryManager.Save();
+            await _repositoryManager.Exhibitions.DeleteAsync(exhibition);
+            await _repositoryManager.SaveAsync();
         }
     }
 }

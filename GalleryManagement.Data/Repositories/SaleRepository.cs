@@ -11,18 +11,18 @@ namespace GalleryManagement.Data.Repositories
         {
         }
 
-        public List<Sale> GetByStatus(string status)
+        public async Task<List<Sale>> GetByStatusAsync(string status)
         {
-            return _dbSet
+            return await _dbSet
                 .Where(s => s.Status.Equals(status, StringComparison.OrdinalIgnoreCase))
-                .ToList();
+                .ToListAsync();
         }
 
-        public List<Sale> GetByArtworkId(int artworkId)
+        public async Task<List<Sale>> GetByArtworkIdAsync(int artworkId)
         {
-            return _dbSet
+            return await _dbSet
                 .Where(s => s.ArtworkId == artworkId)
-                .ToList();
+                .ToListAsync();
         }
     }
 }

@@ -17,31 +17,32 @@ namespace GalleryManagement.Data.Repositories
             _dbSet = context.Set<T>();
         }
 
-        public virtual IEnumerable<T> GetAll()
+        public async virtual Task<IEnumerable<T>> GetAllAsync()
         {
-            return _dbSet.ToList();
+            return await _dbSet.ToListAsync();
         }
 
-        public virtual T? GetById(int id)
+        public async virtual Task<T?> GetByIdAsync(int id)
         {
-            return _dbSet.Find(id);
+            return await _dbSet.FindAsync(id);
         }
 
-        public virtual T Add(T entity)
+        public async virtual Task<T> AddAsync(T entity)
         {
-            _dbSet.Add(entity);
+            await _dbSet.AddAsync(entity);
             return entity;
         }
 
-        public virtual T Update(T entity)
+        public virtual Task<T> UpdateAsync(T entity)
         {
             _dbSet.Update(entity);
-            return entity;
+            return Task.FromResult(entity); 
         }
 
-        public virtual void Delete(T entity)
+        public virtual Task DeleteAsync(T entity)
         {
             _dbSet.Remove(entity);
+            return Task.CompletedTask;
         }
     }   
 }

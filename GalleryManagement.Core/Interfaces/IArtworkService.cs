@@ -9,12 +9,12 @@ namespace GalleryManagement.Core.Interfaces
 {
     public interface IArtworkService
     {
-        List<Artwork> GetAllArtworks(string? status = null);
-        List<Artwork> GetArtworksByArtist(int artistId);
-        Artwork? GetArtworkById(int id);
-        Artwork CreateArtwork(Artwork artwork);
-        Artwork UpdateArtwork(int id, Artwork updatedArtwork);
-        Artwork UpdateArtworkStatus(int id, string status);
-        void DeleteArtwork(int id);
+        Task<List<Artwork>> GetAllArtworksAsync(string? status = null);
+        Task<List<Artwork>> GetArtworksByArtistAsync(int artistId);
+        Task<Artwork?> GetArtworkByIdAsync(int id);
+        Task<Artwork> CreateArtworkAsync(Artwork artwork);
+        Task<Artwork> UpdateArtworkAsync(int id, Artwork updatedArtwork);
+        Task<Artwork> UpdateArtworkStatusAsync(int id, string status);
+        Task DeleteArtworkAsync(int id);
     }
 }

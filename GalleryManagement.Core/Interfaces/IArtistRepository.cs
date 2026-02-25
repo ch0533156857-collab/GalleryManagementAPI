@@ -10,7 +10,7 @@ namespace GalleryManagement.Core.Interfaces
     public interface IArtistRepository : IRepository<Artist>
     {
         //List<Artist> GetAll();
-        List<Artist> GetByStatus(string status);
+        Task<List<Artist>> GetByStatusAsync(string status);
         //Artist? GetById(int id);
         //Artist Add(Artist artist);
         //Artist Update(Artist artist);

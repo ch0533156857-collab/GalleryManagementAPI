@@ -5,6 +5,7 @@ using GalleryManagement.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using restful_code.Models;
 using restful_code.Models.Artwork;
+using System.Threading.Tasks;
 
 namespace restful_code.Controllers
 {
@@ -22,11 +23,11 @@ namespace restful_code.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ArtworkDTO>> GetAllArtworks([FromQuery] string? status = null)
+        public async Task<ActionResult<IEnumerable<ArtworkDTO>>> GetAllArtworks([FromQuery] string? status = null)
         {
             try
             {
-                var artworks = _service.GetAllArtworks(status);
+                var artworks = await _service.GetAllArtworksAsync(status);
                 var artworkDTOs = _mapper.Map<List<ArtworkDTO>>(artworks);
                 return Ok(artworkDTOs);
             }
@@ -37,11 +38,11 @@ namespace restful_code.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ArtworkDTO> GetArtwork(int id)
+        public async Task<ActionResult<ArtworkDTO>> GetArtwork(int id)
         {
             try
             {
-                var artwork = _service.GetArtworkById(id);
+                var artwork = await _service.GetArtworkByIdAsync(id);
                 if (artwork == null)
                 {
                     return NotFound(new { message = $"יצירה עם מזהה {id} לא נמצאה" });
@@ -56,11 +57,11 @@ namespace restful_code.Controllers
         }
 
         [HttpGet("artist/{artistId}")]
-        public ActionResult<IEnumerable<ArtworkDTO>> GetArtworksByArtist(int artistId)
+        public async Task<ActionResult<IEnumerable<ArtworkDTO>>> GetArtworksByArtist(int artistId)
         {
             try
             {
-                var artworks = _service.GetArtworksByArtist(artistId);
+                var artworks = await _service.GetArtworksByArtistAsync(artistId);
                 var artworkDTOs = _mapper.Map<List<ArtworkDTO>>(artworks);
                 return Ok(artworkDTOs);
             }
@@ -71,13 +72,12 @@ namespace restful_code.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ArtworkDTO> CreateArtwork([FromBody] CreateArtworkModel model)
+        public async Task<ActionResult<ArtworkDTO>> CreateArtwork([FromBody] CreateArtworkModel model)
         {
             try
             {
-                // 🎯 נקי ופשוט
                 var artwork = _mapper.Map<Artwork>(model);
-                var created = _service.CreateArtwork(artwork);
+                var created = await _service.CreateArtworkAsync(artwork);
                 var artworkDTO = _mapper.Map<ArtworkDTO>(created);
 
                 return CreatedAtAction(nameof(GetArtwork), new { id = created.Id }, artworkDTO);
@@ -93,13 +93,12 @@ namespace restful_code.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<ArtworkDTO> UpdateArtwork(int id, [FromBody] UpdateArtworkModel model)
+        public async Task<ActionResult<ArtworkDTO>> UpdateArtwork(int id, [FromBody] UpdateArtworkModel model)
         {
             try
             {
-                // 🎯 נקי ופשוט
                 var updatedArtwork = _mapper.Map<Artwork>(model);
-                var artwork = _service.UpdateArtwork(id, updatedArtwork);
+                var artwork = await _service.UpdateArtworkAsync(id, updatedArtwork);
                 var artworkDTO = _mapper.Map<ArtworkDTO>(artwork);
 
                 return Ok(artworkDTO);
@@ -115,11 +114,11 @@ namespace restful_code.Controllers
         }
 
         [HttpPatch("{id}/status")]
-        public ActionResult<ArtworkDTO> UpdateArtworkStatus(int id, [FromBody] StatusUpdate statusUpdate)
+        public async Task<ActionResult<ArtworkDTO>> UpdateArtworkStatus(int id, [FromBody] StatusUpdate statusUpdate)
         {
             try
             {
-                var artwork = _service.UpdateArtworkStatus(id, statusUpdate.Status);
+                var artwork = await _service.UpdateArtworkStatusAsync(id, statusUpdate.Status);
                 var artworkDTO = _mapper.Map<ArtworkDTO>(artwork);
                 return Ok(artworkDTO);
             }
@@ -134,11 +133,11 @@ namespace restful_code.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult DeleteArtwork(int id)
+        public async Task<ActionResult> DeleteArtwork(int id)
         {
             try
             {
-                _service.DeleteArtwork(id);
+                await _service.DeleteArtworkAsync(id);
                 return NoContent();
             }
             catch (KeyNotFoundException ex)

@@ -22,11 +22,11 @@ namespace restful_code.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<SaleDTO>> GetAllSales([FromQuery] string? status = null)
+        public async Task<ActionResult<IEnumerable<SaleDTO>>> GetAllSales([FromQuery] string? status = null)
         {
             try
             {
-                var sales = _service.GetAllSales(status);
+                var sales = await _service.GetAllSalesAsync(status);
                 var saleDTOs = _mapper.Map<List<SaleDTO>>(sales);
                 return Ok(saleDTOs);
             }
@@ -37,11 +37,11 @@ namespace restful_code.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<SaleDTO> GetSale(int id)
+        public async Task<ActionResult<SaleDTO>> GetSale(int id)
         {
             try
             {
-                var sale = _service.GetSaleById(id);
+                var sale = await _service.GetSaleByIdAsync(id);
                 if (sale == null)
                 {
                     return NotFound(new { message = $"מכירה עם מזהה {id} לא נמצאה" });
@@ -56,11 +56,11 @@ namespace restful_code.Controllers
         }
 
         [HttpGet("artwork/{artworkId}")]
-        public ActionResult<IEnumerable<SaleDTO>> GetSalesByArtwork(int artworkId)
+        public async Task<ActionResult<IEnumerable<SaleDTO>>> GetSalesByArtwork(int artworkId)
         {
             try
             {
-                var sales = _service.GetSalesByArtwork(artworkId);
+                var sales = await _service.GetSalesByArtworkAsync(artworkId);
                 var saleDTOs = _mapper.Map<List<SaleDTO>>(sales);
                 return Ok(saleDTOs);
             }
@@ -71,13 +71,12 @@ namespace restful_code.Controllers
         }
 
         [HttpPost]
-        public ActionResult<SaleDTO> CreateSale([FromBody] CreateSaleModel model)
+        public async Task<ActionResult<SaleDTO>> CreateSale([FromBody] CreateSaleModel model)
         {
             try
             {
-                // 🎯 נקי ופשוט
                 var sale = _mapper.Map<Sale>(model);
-                var created = _service.CreateSale(sale);
+                var created = await _service.CreateSaleAsync(sale);
                 var saleDTO = _mapper.Map<SaleDTO>(created);
 
                 return CreatedAtAction(nameof(GetSale), new { id = created.Id }, saleDTO);
@@ -97,13 +96,12 @@ namespace restful_code.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<SaleDTO> UpdateSale(int id, [FromBody] UpdateSaleModel model)
+        public async Task<ActionResult<SaleDTO>> UpdateSale(int id, [FromBody] UpdateSaleModel model)
         {
             try
             {
-                // 🎯 נקי ופשוט
                 var updatedSale = _mapper.Map<Sale>(model);
-                var sale = _service.UpdateSale(id, updatedSale);
+                var sale = await _service.UpdateSaleAsync(id, updatedSale);
                 var saleDTO = _mapper.Map<SaleDTO>(sale);
 
                 return Ok(saleDTO);
@@ -119,11 +117,11 @@ namespace restful_code.Controllers
         }
 
         [HttpPatch("{id}/status")]
-        public ActionResult<SaleDTO> UpdateSaleStatus(int id, [FromBody] SaleStatusUpdate statusUpdate)
+        public async Task<ActionResult<SaleDTO>> UpdateSaleStatus(int id, [FromBody] SaleStatusUpdate statusUpdate)
         {
             try
             {
-                var sale = _service.UpdateSaleStatus(id, statusUpdate.Status);
+                var sale = await _service.UpdateSaleStatusAsync(id, statusUpdate.Status);
                 var saleDTO = _mapper.Map<SaleDTO>(sale);
                 return Ok(saleDTO);
             }
@@ -138,11 +136,11 @@ namespace restful_code.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult DeleteSale(int id)
+        public async Task<ActionResult> DeleteSale(int id)
         {
             try
             {
-                _service.DeleteSale(id);
+                await _service.DeleteSaleAsync(id);
                 return NoContent();
             }
             catch (KeyNotFoundException ex)

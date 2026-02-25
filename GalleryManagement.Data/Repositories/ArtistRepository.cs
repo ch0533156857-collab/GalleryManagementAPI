@@ -1,6 +1,7 @@
 ﻿using GalleryManagement.Core.Entities;
 using GalleryManagement.Core.Interfaces;
 using GalleryManagement.Data.DataContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace GalleryManagement.Data.Repositories
 {
@@ -10,11 +11,11 @@ namespace GalleryManagement.Data.Repositories
         {
         }
 
-        public List<Artist> GetByStatus(string status)
+        public async Task<List<Artist>> GetByStatusAsync(string status)
         {
-            return _dbSet
+            return await _dbSet
                 .Where(a => a.Status.Equals(status, StringComparison.OrdinalIgnoreCase))
-                .ToList();
+                .ToListAsync();
         }
     }
 }

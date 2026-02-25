@@ -9,12 +9,12 @@ namespace GalleryManagement.Core.Interfaces
 {
     public interface ISaleService
     {
-        List<Sale> GetAllSales(string? status = null);
-        List<Sale> GetSalesByArtwork(int artworkId);
-        Sale? GetSaleById(int id);
-        Sale CreateSale(Sale sale);
-        Sale UpdateSale(int id, Sale updatedSale);
-        Sale UpdateSaleStatus(int id, string status);
-        void DeleteSale(int id);
+        Task<List<Sale>> GetAllSalesAsync(string? status = null);
+        Task<List<Sale>> GetSalesByArtworkAsync(int artworkId);
+        Task<Sale?> GetSaleByIdAsync(int id);
+        Task<Sale> CreateSaleAsync(Sale sale);
+        Task<Sale> UpdateSaleAsync(int id, Sale updatedSale);
+        Task<Sale> UpdateSaleStatusAsync(int id, string status);
+        Task DeleteSaleAsync(int id);
     }
 }

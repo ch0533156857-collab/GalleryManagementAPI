@@ -17,25 +17,26 @@ namespace GalleryManagement.Service.Services
             _repositoryManager = repositoryManager;
         }
 
-        public List<Artist> GetAllArtists(string? status = null)
+        public async Task<List<Artist>> GetAllArtistsAsync(string? status = null)
         {
             if (string.IsNullOrEmpty(status))
             {
-                return _repositoryManager.Artists.GetAll().ToList();
+                var artists =  await _repositoryManager.Artists.GetAllAsync();
+                return artists.ToList();
             }
-            return _repositoryManager.Artists.GetByStatus(status);
+            return await _repositoryManager.Artists.GetByStatusAsync(status);
         }
 
-        public Artist? GetArtistById(int id)
+        public async Task<Artist?> GetArtistByIdAsync(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException("ID חייב להיות חיובי");
             }
-            return _repositoryManager.Artists.GetById(id);
+            return await _repositoryManager.Artists.GetByIdAsync(id);
         }
 
-        public Artist CreateArtist(Artist artist)
+        public async Task<Artist> CreateArtistAsync(Artist artist)
         {
             if (string.IsNullOrWhiteSpace(artist.Name))
             {
@@ -49,15 +50,15 @@ namespace GalleryManagement.Service.Services
             artist.CreatedAt = DateTime.Now;
             artist.Status = "active";
 
-            var result = _repositoryManager.Artists.Add(artist);
-            _repositoryManager.Save();
+            var result = await _repositoryManager.Artists.AddAsync(artist);
+            await _repositoryManager.SaveAsync();
 
             return result;
         }
 
-        public Artist UpdateArtist(int id, Artist updatedArtist)
+        public async Task<Artist> UpdateArtistAsync(int id, Artist updatedArtist)
         {
-            var existingArtist = _repositoryManager.Artists.GetById(id);
+            var existingArtist = await _repositoryManager.Artists.GetByIdAsync(id);
             if (existingArtist == null)
             {
                 throw new KeyNotFoundException($"אמן עם מזהה {id} לא נמצא");
@@ -75,15 +76,15 @@ namespace GalleryManagement.Service.Services
             existingArtist.Style = updatedArtist.Style;
             existingArtist.Status = updatedArtist.Status;
 
-            _repositoryManager.Artists.Update(existingArtist);
-            _repositoryManager.Save();
+            await _repositoryManager.Artists.UpdateAsync(existingArtist);
+            await _repositoryManager.SaveAsync();
 
             return existingArtist;
         }
 
-        public Artist UpdateArtistStatus(int id, string status)
+        public async Task<Artist> UpdateArtistStatusAsync(int id, string status)
         {
-            var artist = _repositoryManager.Artists.GetById(id);
+            var artist = await _repositoryManager.Artists.GetByIdAsync(id);
             if (artist == null)
             {
                 throw new KeyNotFoundException($"אמן עם מזהה {id} לא נמצא");
@@ -95,23 +96,21 @@ namespace GalleryManagement.Service.Services
             }
 
             artist.Status = status;
-            _repositoryManager.Artists.Update(artist);
-            _repositoryManager.Save();
+            await _repositoryManager.Artists.UpdateAsync(artist);
+            await _repositoryManager.SaveAsync();
 
             return artist;
         }
 
-        public List<Artwork> GetArtistArtworks(int id)
+        public async Task<List<Artwork>> GetArtistArtworksAsync(int id)
         {
-            var artist = _repositoryManager.Artists.GetById(id);
+            var artist = await _repositoryManager.Artists.GetByIdAsync(id);
             if (artist == null)
             {
                 throw new KeyNotFoundException($"אמן עם מזהה {id} לא נמצא");
             }
 
-            return _repositoryManager.Artworks.GetAll()
-                .Where(a => a.ArtistId == id)
-                .ToList();
+            return await _repositoryManager.Artworks.GetByArtistIdAsync(id);
         }
     }
 }
