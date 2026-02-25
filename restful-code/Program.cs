@@ -52,7 +52,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseMiddleware<ShabbatMiddleware>();
+app.UseShabbatCheck();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
