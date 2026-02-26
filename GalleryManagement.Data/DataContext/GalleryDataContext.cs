@@ -16,14 +16,6 @@ namespace GalleryManagement.Data.DataContext
         public DbSet<Exhibition> Exhibitions { get; set; }
         public DbSet<Sale> Sales { get; set; }
 
-        // הגדרת Connection String (אופציה אם לא עושים ב-Program.cs)
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=GalleryManagementDB");
-            }
-        }
 
         // Seed Data - נתונים התחלתיים
         protected override void OnModelCreating(ModelBuilder modelBuilder)

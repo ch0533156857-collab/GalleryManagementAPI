@@ -2,12 +2,14 @@
 using GalleryManagement.Core.DTOs;
 using GalleryManagement.Core.Entities;
 using GalleryManagement.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using restful_code.Models;
 using restful_code.Models.Sale;
 
 namespace restful_code.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SalesController : ControllerBase
